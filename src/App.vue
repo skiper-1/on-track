@@ -1,12 +1,19 @@
 <script setup>
-import { CheckCircleIcon } from '@heroicons/vue/16/solid';
-import { BoltIcon } from '@heroicons/vue/24/outline';
-import { ClockIcon } from '@heroicons/vue/24/outline';
-import { ChartBarIcon } from '@heroicons/vue/24/outline';
-import { ListBulletIcon } from '@heroicons/vue/16/solid';
+import { BoltIcon, ListBulletIcon } from '@heroicons/vue/24/solid';
+import {
+  ChartBarIcon,
+  CheckCircleIcon,
+  ClockIcon,
+} from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
 
-const activeView = ref('Timeline');
+const navItems = {
+  timeline: ClockIcon,
+  activities: ListBulletIcon,
+  progress: ChartBarIcon,
+};
+
+const activePage = ref('timeline');
 </script>
 
 <template>
@@ -34,93 +41,41 @@ const activeView = ref('Timeline');
       </div>
     </a>
   </header>
-  <main
-    class="bg-gray-800 text-center grow-1 text-white flex items-center justify-center"
-  >
-    {{ activeView }}
+  <main class="flex grow">
+    {{ activePage }}
   </main>
   <nav class="sticky bottom-0 bg-gray-700 text-white">
     <ul class="flex items-center justify-around">
-      <li>
+      <li
+        v-for="(icon, page) in navItems"
+        :key="page"
+        class="flex"
+        @click="activePage = page"
+      >
         <a
-          class="flex gap-2 flex-col justify-center items-center grow-1 py-3"
-          href="#"
-          @click="activeView = 'Timeline'"
+          :href="`#${page}`"
+          class="flex gap-2 flex-col justify-center items-center py-3"
         >
-          <ClockIcon
+          <component
+            :is="icon"
             :class="[
-              `h-15 text-gray-700 rounded-2xl from-green-500  ${
-                activeView === 'Timeline'
-                  ? 'to-blue-500 bg-gradient-to-tr border-2 border-white'
-                  : 'bg-gradient-to-bl to-violet-500'
+              `h-12 text-gray-700 rounded-2xl bg-gradient-to-br p-1  ${
+                activePage === page
+                  ? 'from-red-500 to-yellow-500 '
+                  : 'from-green-500 to-blue-500 '
               }`,
             ]"
           />
           <div
             :class="[
-              'text-2xl text-gray-400',
-              { 'text-white': activeView === 'Timeline' },
+              'text-xl text-gray-400 capitalize',
+              { 'text-white': activePage === page },
             ]"
           >
-            Timeline
-          </div>
-        </a>
-      </li>
-      <li>
-        <a
-          class="flex gap-2 flex-col justify-center items-center grow-1"
-          href="#"
-          @click="activeView = 'Activities'"
-        >
-          <ListBulletIcon
-            :class="[
-              `h-15 text-gray-700 rounded-2xl  from-green-500 ${
-                activeView === 'Activities'
-                  ? 'to-blue-500 bg-gradient-to-tr border-2 border-white'
-                  : 'bg-gradient-to-bl to-violet-500'
-              }`,
-            ]"
-          />
-          <div
-            :class="[
-              'text-2xl text-gray-400',
-              {
-                'text-white': activeView === 'Activities',
-              },
-            ]"
-          >
-            Activities
-          </div>
-        </a>
-      </li>
-      <li>
-        <a
-          class="flex gap-2 flex-col justify-center items-center grow-1"
-          href="#"
-          @click="activeView = 'Progress'"
-        >
-          <ChartBarIcon
-            :class="[
-              `h-15 text-gray-700 rounded-2xl from-green-500 ${
-                activeView === 'Progress'
-                  ? 'to-blue-500 bg-gradient-to-tr border-2 border-white'
-                  : 'bg-gradient-to-bl to-violet-500'
-              }`,
-              ,
-            ]"
-          />
-          <div
-            :class="[
-              'text-2xl text-gray-400',
-              { 'text-white': activeView === 'Progress' },
-            ]"
-          >
-            Progress
+            {{ page }}
           </div>
         </a>
       </li>
     </ul>
   </nav>
 </template>
-
-<style lang="scss" scoped></style>
