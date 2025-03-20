@@ -1,9 +1,10 @@
 <script setup>
 import { CheckCircleIcon } from '@heroicons/vue/24/outline';
+import { PAGE_PROGRESS } from '@/constants';
 </script>
 
 <template>
-  <a href="#">
+  <a :href="`#${PAGE_PROGRESS}`">
     <div v-if="true" class="flex gap-2">
       <div>Day complete!</div>
       <CheckCircleIcon class="size-6 text-lime-500" />

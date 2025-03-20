@@ -1,38 +1,26 @@
 <script setup>
-import { ListBulletIcon } from '@heroicons/vue/24/solid';
-import { ChartBarIcon, ClockIcon } from '@heroicons/vue/24/outline';
 import NavItem from './NavItem.vue';
-import { ref } from 'vue';
-import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from '@/constants';
+import { NAV_ITEMS } from '@/constants';
+import { isPageValid } from '@/validators';
 
-const navItems = {
-  [PAGE_TIMELINE]: ClockIcon,
-  [PAGE_ACTIVITIES]: ListBulletIcon,
-  [PAGE_PROGRESS]: ChartBarIcon,
-};
-
-const normalizeHash = () => {
-  let hash = window.location.hash.slice(1);
-
-  if (Object.keys(navItems).includes(hash)) {
-    return hash;
-  } else {
-    window.location.hash = PAGE_TIMELINE;
-    return PAGE_TIMELINE;
-  }
-};
-
-const currentPage = ref(normalizeHash());
+const props = defineProps({
+  currentPage: {
+    type: String,
+    required: true,
+    validator: isPageValid,
+  },
+});
+const emits = defineEmits({ navigate: isPageValid });
 </script>
 
 <template>
-  <nav class="sticky bottom-0 bg-gray-700 text-white">
+  <nav class="sticky bottom-0 bg-gray-700 text-white z-20 rounded-b-3xl">
     <ul class="flex items-center justify-around">
       <NavItem
-        v-for="(icon, page) in navItems"
+        v-for="(icon, page) in NAV_ITEMS"
         :key="page"
         :href="`#${page}`"
-        @click="currentPage = page"
+        @click="$emit('navigate', page)"
       >
         <component
           :is="icon"
