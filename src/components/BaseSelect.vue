@@ -54,7 +54,7 @@ const isNotSelected = computed(() => isUndefinedOrNull(props.selected));
       </option>
     </select>
     <BaseButton @click="$emit('reset')">
-      <XMarkIcon class="size-10 text-red-500 hover:text-red-300" />
+      <XMarkIcon class="size-8 text-red-500 hover:text-red-300" />
     </BaseButton>
   </div>
 </template>

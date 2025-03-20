@@ -14,6 +14,25 @@ const NAV_ITEMS = {
 const MIDNIGHT_HOUR = 0;
 const HOURS_IN_DAY = 24;
 
+const PERIOD_SELECT_OPTIONS = [
+  {
+    value: 15,
+    label: '00:15',
+  },
+  {
+    value: 30,
+    label: '00:30',
+  },
+  {
+    value: 45,
+    label: '00:45',
+  },
+  {
+    value: 60,
+    label: '01:00',
+  },
+];
+
 export {
   PAGE_TIMELINE,
   PAGE_ACTIVITIES,
@@ -21,4 +40,5 @@ export {
   NAV_ITEMS,
   MIDNIGHT_HOUR,
   HOURS_IN_DAY,
+  PERIOD_SELECT_OPTIONS,
 };

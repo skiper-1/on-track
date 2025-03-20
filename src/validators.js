@@ -33,6 +33,12 @@ const isNumberOrNull = (value) => isNumber(value) || isNull(value);
 
 const isUndefinedOrNull = (value) => isUndefined(value) || isNull(value);
 
+const isNotEmptyString = (value) => isString(value) && value.length !== 0;
+
+const isValidActivity = (value) => isNotEmptyString(value);
+
+const validActivities = (activities) => activities.every(isValidActivity);
+
 export {
   isNull,
   isUndefined,
@@ -44,4 +50,6 @@ export {
   isTimelineItemValid,
   validateSelectOptions,
   validateTimelineItems,
+  validActivities,
+  isValidActivity,
 };

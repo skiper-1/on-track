@@ -11,13 +11,15 @@ import { normalizePageHash, generateTimelineItems } from '../functions';
 const currentPage = ref(normalizePageHash());
 const timelineItems = generateTimelineItems();
 
+const activities = ['Coding', 'Reading', 'Training'];
+
 const goTo = (page) => {
   currentPage.value = page;
 };
 </script>
 
 <template>
-  <div class="border-2 rounded-3xl flex flex-col h-screen">
+  <div class="rounded-3xl flex flex-col h-screen">
     <TheHeader @navigate="goTo($event)" />
     <div
       class="flex-1 overflow-y-auto"
@@ -28,7 +30,11 @@ const goTo = (page) => {
         v-show="currentPage === PAGE_TIMELINE"
         :timeline-items="timelineItems"
       />
-      <TheActivities class="" v-show="currentPage === PAGE_ACTIVITIES" />
+      <TheActivities
+        class=""
+        v-show="currentPage === PAGE_ACTIVITIES"
+        :activities="activities"
+      />
       <TheProgress class="" v-show="currentPage === PAGE_PROGRESS" />
     </div>
     <TheNav :current-page="currentPage" @navigate="goTo($event)" />
