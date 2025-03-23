@@ -1,5 +1,9 @@
-import { NAV_ITEMS } from './constants';
-import { HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants';
+import {
+  HOURS_IN_DAY,
+  MIDNIGHT_HOUR,
+  NAV_ITEMS,
+  BUTTONS_TYPES,
+} from '@/constants';
 
 const isPageValid = (page) => Object.keys(NAV_ITEMS).includes(page);
 
@@ -10,7 +14,7 @@ const validateSelectOptions = (options) => {
 };
 
 const isSelectOptionValid = ({ value, label }) =>
-  isNumber(value) && isString(label);
+  isNumber(value) || (isNotEmptyString(value) && isNotEmptyString(label));
 
 const validateTimelineItems = (timelineItems) => {
   return timelineItems.every(isTimelineItemValid);
@@ -35,9 +39,17 @@ const isUndefinedOrNull = (value) => isUndefined(value) || isNull(value);
 
 const isNotEmptyString = (value) => isString(value) && value.length !== 0;
 
-const isValidActivity = (value) => isNotEmptyString(value);
+const isValidActivity = ({ id, name, secondsToComplete }) => {
+  return [
+    isNotEmptyString(id),
+    isNotEmptyString(name),
+    isNumber(secondsToComplete),
+  ].every(Boolean);
+};
 
 const validActivities = (activities) => activities.every(isValidActivity);
+
+const isButtonValid = (button) => BUTTONS_TYPES.includes(button);
 
 export {
   isNull,
@@ -52,4 +64,5 @@ export {
   validateTimelineItems,
   validActivities,
   isValidActivity,
+  isButtonValid,
 };

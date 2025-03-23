@@ -16,7 +16,6 @@ const props = defineProps({
   options: {
     type: Array,
     required: true,
-    validator: validateSelectOptions,
   },
 
   placeholder: {
@@ -54,7 +53,7 @@ const isNotSelected = computed(() => isUndefinedOrNull(props.selected));
       </option>
     </select>
     <BaseButton @click="$emit('reset')">
-      <XMarkIcon class="size-8 text-red-500 hover:text-red-300" />
+      <XMarkIcon class="size-8" />
     </BaseButton>
   </div>
 </template>

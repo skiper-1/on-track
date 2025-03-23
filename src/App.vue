@@ -5,38 +5,50 @@ import TheTimeline from './pages/TheTimeline.vue';
 import TheActivities from './pages/TheActivities.vue';
 import TheProgress from './pages/TheProgress.vue';
 import { ref } from 'vue';
-import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from './constants';
-import { normalizePageHash, generateTimelineItems } from '../functions';
+import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from '@/constants';
+import {
+  normalizePageHash,
+  generateTimelineItems,
+  generateActivitySelectOptions,
+  generateActivities,
+} from './functions';
 
 const currentPage = ref(normalizePageHash());
 const timelineItems = generateTimelineItems();
 
-const activities = ['Coding', 'Reading', 'Training'];
+const activities = ref(generateActivities());
+
+const activitySelectOptions = generateActivitySelectOptions(activities.value);
 
 const goTo = (page) => {
   currentPage.value = page;
 };
+
+const removeActivity = (activity) =>
+  activities.value.splice(activities.value.indexOf(activity), 1);
+
+const createActivity = (activity) => {
+  activities.value.push(activity);
+};
 </script>
 
 <template>
-  <div class="rounded-3xl flex flex-col h-screen">
+  <div class="flex flex-col bg-gray-800 min-h-screen">
     <TheHeader @navigate="goTo($event)" />
-    <div
-      class="flex-1 overflow-y-auto"
-      style="scrollbar-width: none; -ms-overflow-style: none"
-    >
-      <TheTimeline
-        class=""
-        v-show="currentPage === PAGE_TIMELINE"
-        :timeline-items="timelineItems"
-      />
-      <TheActivities
-        class=""
-        v-show="currentPage === PAGE_ACTIVITIES"
-        :activities="activities"
-      />
-      <TheProgress class="" v-show="currentPage === PAGE_PROGRESS" />
-    </div>
+    <TheTimeline
+      class="flex-1"
+      v-show="currentPage === PAGE_TIMELINE"
+      :timeline-items="timelineItems"
+      :activity-select-options="activitySelectOptions"
+    />
+    <TheActivities
+      class="flex-1"
+      v-show="currentPage === PAGE_ACTIVITIES"
+      :activities="activities"
+      @remove-activity="removeActivity"
+      @create-activity="createActivity"
+    />
+    <TheProgress class="flex-1" v-show="currentPage === PAGE_PROGRESS" />
     <TheNav :current-page="currentPage" @navigate="goTo($event)" />
   </div>
 </template>

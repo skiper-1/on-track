@@ -14,7 +14,7 @@ const emits = defineEmits({ navigate: isPageValid });
 </script>
 
 <template>
-  <nav class="sticky bottom-0 bg-gray-700 text-white z-20 rounded-b-3xl">
+  <nav class="sticky bottom-0 bg-gray-700 text-white z-20">
     <ul class="flex items-center justify-around">
       <NavItem
         v-for="(icon, page) in NAV_ITEMS"

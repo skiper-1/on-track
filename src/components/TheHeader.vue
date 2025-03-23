@@ -11,7 +11,7 @@ const emits = defineEmits({
 
 <template>
   <header
-    class="sticky top-0 bg-gray-800 text-white flex items-center justify-between p-5 z-20 rounded-t-3xl"
+    class="sticky top-0 bg-gray-700 text-white flex items-center justify-between p-5 z-20"
   >
     <TheLogo @click="$emit('navigate', PAGE_TIMELINE)" />
     <TheHeaderProgress @click="$emit('navigate', PAGE_PROGRESS)" />
