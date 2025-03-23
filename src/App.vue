@@ -14,7 +14,8 @@ import {
 } from './functions';
 
 const currentPage = ref(normalizePageHash());
-const timelineItems = generateTimelineItems();
+
+const timelineItems = ref(generateTimelineItems());
 
 const activities = ref(generateActivities());
 
@@ -26,15 +27,27 @@ const goTo = (page) => {
   currentPage.value = page;
 };
 
-const removeActivity = (activity) =>
-  activities.value.splice(activities.value.indexOf(activity), 1);
+const removeActivity = (activity) => {
+  timelineItems.value = timelineItems.value.map((timelineItem) => {
+    if (timelineItem.activityId === activity.id) {
+      return { ...timelineItem, activityId: null };
+    }
+    return timelineItem;
+  });
+
+  activities.value = activities.value.filter((item) => item.id !== activity.id);
+};
 
 const createActivity = (activity) => {
   activities.value.push(activity);
 };
 
-const setTimelineItemActivity = ({ timelineItem, activity }) =>
+const setTimelineItemActivity = (timelineItem, activity) =>
   (timelineItem.activityId = activity.id);
+
+const setActivitySecondsToComplete = (activity, secondsToComplete) => {
+  activity.secondsToComplete = secondsToComplete;
+};
 </script>
 
 <template>
@@ -54,6 +67,7 @@ const setTimelineItemActivity = ({ timelineItem, activity }) =>
       :activities="activities"
       @remove-activity="removeActivity"
       @create-activity="createActivity"
+      @set-activity-seconds-to-complete="setActivitySecondsToComplete"
     />
     <TheProgress class="flex-1" v-show="currentPage === PAGE_PROGRESS" />
     <TheNav :current-page="currentPage" @navigate="goTo($event)" />

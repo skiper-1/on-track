@@ -17,20 +17,16 @@ const HOURS_IN_DAY = 24;
 
 const PERIOD_SELECT_OPTIONS = [
   {
-    value: 15 * 60,
-    label: '00:15',
+    value: 1 * SECONDS_IN_HOUR,
+    label: '1:00',
   },
   {
-    value: 30 * 60,
-    label: '00:30',
+    value: 2 * SECONDS_IN_HOUR,
+    label: '2:00',
   },
   {
-    value: 45 * 60,
-    label: '00:45',
-  },
-  {
-    value: 60 * 60,
-    label: '01:00',
+    value: 3 * SECONDS_IN_HOUR,
+    label: '3:00',
   },
 ];
 
@@ -43,6 +39,8 @@ const BUTTONS_TYPES = [
   BUTTON_TYPE_NEUTRAL,
   BUTTON_TYPE_ACCEPT,
 ];
+
+const NULLABLE_ACTIVITY = { id: null };
 
 export {
   PAGE_TIMELINE,
@@ -57,4 +55,5 @@ export {
   BUTTON_TYPE_NEUTRAL,
   BUTTON_TYPE_ACCEPT,
   SECONDS_IN_HOUR,
+  NULLABLE_ACTIVITY,
 };

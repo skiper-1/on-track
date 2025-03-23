@@ -2,11 +2,8 @@
 import { TrashIcon } from '@heroicons/vue/24/outline';
 import BaseButton from '@/components/BaseButton.vue';
 import BaseSelect from '@/components/BaseSelect.vue';
-import { ref } from 'vue';
 import { PERIOD_SELECT_OPTIONS } from '@/constants';
-import { isUndefined, isValidActivity } from '@/validators';
-
-const secondsToCompleted = ref(null);
+import { isNumber, isUndefined, isValidActivity } from '@/validators';
 
 const props = defineProps({
   activity: {
@@ -16,7 +13,10 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits({ removeActivity: isUndefined });
+const emit = defineEmits({
+  removeActivity: isUndefined,
+  setSecondsToComplete: isNumber,
+});
 </script>
 
 <template>
@@ -29,11 +29,11 @@ const emit = defineEmits({ removeActivity: isUndefined });
     </div>
     <div>
       <BaseSelect
-        :selected="secondsToCompleted"
+        :selected="activity.secondsToComplete || null"
         :options="PERIOD_SELECT_OPTIONS"
         placeholder="hh:mm"
-        @select="secondsToCompleted = $event"
-        @reset="secondsToCompleted = 'hh:mm'"
+        @select="emit('setSecondsToComplete', $event)"
+        @reset="activity.secondsToComplete = null"
       />
     </div>
   </li>

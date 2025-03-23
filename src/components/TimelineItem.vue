@@ -7,6 +7,7 @@ import {
 } from '@/validators';
 import BaseSelect from './BaseSelect.vue';
 import BaseHour from './BaseHour.vue';
+import { NULLABLE_ACTIVITY } from '@/constants';
 
 const props = defineProps({
   timelineItem: {
@@ -30,11 +31,10 @@ const emit = defineEmits({
   selectActivity: isValidActivity,
 });
 
-const selectActivity = (id) =>
-  emit(
-    'selectActivity',
-    props.activities.find((activity) => activity.id === id)
-  );
+const selectActivity = (id) => emit('selectActivity', findActivityById(id));
+
+const findActivityById = (id) =>
+  props.activities.find((activity) => activity.id === id) || NULLABLE_ACTIVITY;
 </script>
 
 <template>

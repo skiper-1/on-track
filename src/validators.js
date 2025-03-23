@@ -40,6 +40,10 @@ const isUndefinedOrNull = (value) => isUndefined(value) || isNull(value);
 const isNotEmptyString = (value) => isString(value) && value.length !== 0;
 
 const isValidActivity = ({ id, name, secondsToComplete }) => {
+  if (isNull(id)) {
+    return true;
+  }
+
   return [
     isNotEmptyString(id),
     isNotEmptyString(name),
