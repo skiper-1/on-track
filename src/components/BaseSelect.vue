@@ -4,13 +4,14 @@ import BaseButton from './BaseButton.vue';
 import {
   validateSelectOptions,
   isUndefinedOrNull,
-  isNumberOrNull,
+  isSelectValueValid,
 } from '@/validators';
 import { computed } from 'vue';
+import { normalizeSelectValue } from '@/functions';
 
 const props = defineProps({
   selected: {
-    type: Number,
+    type: [String, Number, null],
     required: false,
   },
   options: {
@@ -24,8 +25,8 @@ const props = defineProps({
   },
 });
 
-const emits = defineEmits({
-  select: isNumberOrNull,
+const emit = defineEmits({
+  select: isSelectValueValid,
 
   reset() {
     return true;
@@ -33,6 +34,8 @@ const emits = defineEmits({
 });
 
 const isNotSelected = computed(() => isUndefinedOrNull(props.selected));
+
+const select = (value) => emit('select', normalizeSelectValue(value));
 </script>
 
 <template>
@@ -41,9 +44,11 @@ const isNotSelected = computed(() => isUndefinedOrNull(props.selected));
       name="select"
       id="select"
       class="border-2 border-green-600/70 w-full rounded-xl h-10 px-2 hover:border-green-400 focus:outline-none focus:border-green-500"
-      @change="$emit('select', +$event.target.value)"
+      @change="select($event.target.value)"
     >
-      <option value="0" disabled :selected="isNotSelected">Rest</option>
+      <option value="0" disabled :selected="isNotSelected">
+        {{ placeholder }}
+      </option>
       <option
         v-for="{ value, label } in props.options"
         :value="value"

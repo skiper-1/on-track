@@ -6,7 +6,7 @@ import { ref } from 'vue';
 import { PERIOD_SELECT_OPTIONS } from '@/constants';
 import { isUndefined, isValidActivity } from '@/validators';
 
-const secondsToCompleted = ref();
+const secondsToCompleted = ref(null);
 
 const props = defineProps({
   activity: {
@@ -33,7 +33,7 @@ const emit = defineEmits({ removeActivity: isUndefined });
         :options="PERIOD_SELECT_OPTIONS"
         placeholder="hh:mm"
         @select="secondsToCompleted = $event"
-        @reset="secondsToCompleted = null"
+        @reset="secondsToCompleted = 'hh:mm'"
       />
     </div>
   </li>

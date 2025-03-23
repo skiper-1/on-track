@@ -5,6 +5,7 @@ import {
   MIDNIGHT_HOUR,
   SECONDS_IN_HOUR,
 } from '@/constants';
+import { isNull } from './validators';
 
 const normalizePageHash = () => {
   let hash = window.location.hash.slice(1);
@@ -20,7 +21,7 @@ const generateTimelineItems = () => {
   const timelineItems = [];
 
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
-    timelineItems.push({ hour });
+    timelineItems.push({ hour, activityId: null });
   }
   return timelineItems;
 };
@@ -38,10 +39,14 @@ const generateActivities = () => {
   }));
 };
 
+const normalizeSelectValue = (value) =>
+  isNull(value) || isNaN(value) ? value : +value;
+
 export {
   id,
   normalizePageHash,
   generateTimelineItems,
   generateActivitySelectOptions,
   generateActivities,
+  normalizeSelectValue,
 };

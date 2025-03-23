@@ -51,6 +51,9 @@ const validActivities = (activities) => activities.every(isValidActivity);
 
 const isButtonValid = (button) => BUTTONS_TYPES.includes(button);
 
+const isSelectValueValid = (value) =>
+  isNotEmptyString(value) || isNumberOrNull(value);
+
 export {
   isNull,
   isUndefined,
@@ -65,4 +68,5 @@ export {
   validActivities,
   isValidActivity,
   isButtonValid,
+  isSelectValueValid,
 };

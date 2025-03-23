@@ -1,6 +1,13 @@
 <script setup>
 import TimelineItem from '@/components/TimelineItem.vue';
-import { validateSelectOptions, validateTimelineItems } from '@/validators';
+import {
+  validateSelectOptions,
+  validateTimelineItems,
+  validActivities,
+  isTimelineItemValid,
+  isValidActivity,
+} from '@/validators';
+
 const props = defineProps({
   timelineItems: {
     type: Array,
@@ -11,6 +18,19 @@ const props = defineProps({
     type: Array,
     required: true,
     validator: validateSelectOptions,
+  },
+  activities: {
+    type: Array,
+    required: true,
+    validator: validActivities,
+  },
+});
+
+const emit = defineEmits({
+  setTimelineItemActivity({ timelineItem, activity }) {
+    return [isTimelineItemValid(timelineItem), isValidActivity(activity)].every(
+      Boolean
+    );
   },
 });
 </script>
@@ -23,7 +43,14 @@ const props = defineProps({
           v-for="timelineItem in props.timelineItems"
           :key="timelineItem"
           :timeline-item="timelineItem"
+          :activities="activities"
           :activity-select-options="activitySelectOptions"
+          @select-activity="
+            emit('setTimelineItemActivity', {
+              timelineItem,
+              activity: $event,
+            })
+          "
         />
       </ul>
     </div>

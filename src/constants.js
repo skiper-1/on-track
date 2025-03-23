@@ -17,19 +17,19 @@ const HOURS_IN_DAY = 24;
 
 const PERIOD_SELECT_OPTIONS = [
   {
-    value: 15,
+    value: 15 * 60,
     label: '00:15',
   },
   {
-    value: 30,
+    value: 30 * 60,
     label: '00:30',
   },
   {
-    value: 45,
+    value: 45 * 60,
     label: '00:45',
   },
   {
-    value: 60,
+    value: 60 * 60,
     label: '01:00',
   },
 ];
