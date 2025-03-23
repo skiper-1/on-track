@@ -4,6 +4,8 @@ import {
   PAGE_TIMELINE,
   MIDNIGHT_HOUR,
   SECONDS_IN_HOUR,
+  SECONDS_IN_MINUTE,
+  MINUTES_IN_HOUR,
 } from '@/constants';
 import { isNull } from './validators';
 
@@ -42,6 +44,23 @@ const generateActivities = () => {
 const normalizeSelectValue = (value) =>
   isNull(value) || isNaN(value) ? value : +value;
 
+const generatePeriodSelectOptionsLabel = (periodInMinutes) => {
+  const hours = Math.floor(periodInMinutes / MINUTES_IN_HOUR)
+    .toString()
+    .padStart(2, 0);
+
+  const minutes = (periodInMinutes % MINUTES_IN_HOUR).toString().padStart(2, 0);
+
+  return `${hours}:${minutes}`;
+};
+
+const generatePeriodSelectOptions = (periodsInMinutes) => {
+  return periodsInMinutes.map((periodInMinutes) => ({
+    value: periodInMinutes * SECONDS_IN_MINUTE,
+    label: generatePeriodSelectOptionsLabel(periodInMinutes),
+  }));
+};
+
 export {
   id,
   normalizePageHash,
@@ -49,4 +68,5 @@ export {
   generateActivitySelectOptions,
   generateActivities,
   normalizeSelectValue,
+  generatePeriodSelectOptions,
 };

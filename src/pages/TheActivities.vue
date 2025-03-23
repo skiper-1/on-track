@@ -13,8 +13,8 @@ const props = defineProps({
 });
 
 const emit = defineEmits({
-  setActivitySecondsTocomplete(activity, secondsTocomplete) {
-    return [isValidActivity(activity), isNumber(secondsTocomplete)].every(
+  setActivitySecondsToComplete(activity, secondsToComplete) {
+    return [isValidActivity(activity), isNumber(secondsToComplete)].every(
       Boolean
     );
   },
