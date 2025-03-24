@@ -4,6 +4,7 @@ import BaseButton from './BaseButton.vue';
 import { PlayIcon, PauseIcon, ArrowPathIcon } from '@heroicons/vue/24/outline';
 import { ref } from 'vue';
 import { formatSeconds } from '@/functions';
+
 const props = defineProps({
   seconds: {
     type: Number,
@@ -17,6 +18,10 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits({
+  updateSeconds: isNumber,
+});
+
 const seconds = ref(props.seconds);
 
 const isRunning = ref(false);
@@ -24,21 +29,22 @@ const isRunning = ref(false);
 const isStartButtonDisabled = props.hour !== new Date().getHours();
 
 const start = () => {
-  console.log('start');
   isRunning.value = setInterval(() => {
+    emit('updateSeconds', 1);
     seconds.value++;
   }, 10);
 };
 
 const stop = () => {
-  console.log('stop');
   clearInterval(isRunning.value);
   isRunning.value = false;
 };
 
 const reset = () => {
-  console.log('reset');
   stop();
+
+  emit('updateSeconds', -seconds.value);
+
   seconds.value = 0;
 };
 </script>

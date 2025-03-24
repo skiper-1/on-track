@@ -55,6 +55,10 @@ const setTimelineItemActivity = (timelineItem, activity) =>
 const setActivitySecondsToComplete = (activity, secondsToComplete) => {
   activity.secondsToComplete = secondsToComplete;
 };
+
+const updateTimelineItemActivitySeconds = (timelineItem, secondsToComplete) => {
+  timelineItem.activitySeconds += secondsToComplete;
+};
 </script>
 
 <template>
@@ -69,11 +73,13 @@ const setActivitySecondsToComplete = (activity, secondsToComplete) => {
       :activity-select-options="activitySelectOptions"
       :currentPage="currentPage"
       @set-timeline-item-activity="setTimelineItemActivity"
+      @update-timeline-item-activity-seconds="updateTimelineItemActivitySeconds"
     />
     <TheActivities
       class="flex-1"
       v-show="currentPage === PAGE_ACTIVITIES"
       :activities="activities"
+      :timeline-items="timelineItems"
       @remove-activity="removeActivity"
       @create-activity="createActivity"
       @set-activity-seconds-to-complete="setActivitySecondsToComplete"

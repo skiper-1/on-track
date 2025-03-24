@@ -26,9 +26,14 @@ const generateTimelineItems = (activities) => {
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
     timelineItems.push({
       hour,
-      activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
-      activitySeconds:
-        hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR,
+      // activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
+      // activitySeconds:
+      //   hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR,
+
+      activityId: [0, 1, 2, 3, 4].includes(hour)
+        ? activities[hour % 3].id
+        : null,
+      activitySeconds: [0, 1, 2, 3, 4].includes(hour) ? hour * 300 : 0,
     });
   }
   return timelineItems;
@@ -77,6 +82,16 @@ const formatSeconds = (seconds) => {
   return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6);
 };
 
+const getTotalActivitySeconds = (activity, timelineItems) => {
+  return timelineItems
+    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .reduce(
+      (totalSeconds, timelineItem) =>
+        Math.round(timelineItem.activitySeconds + totalSeconds),
+      0
+    );
+};
+
 export {
   id,
   normalizePageHash,
@@ -86,4 +101,5 @@ export {
   normalizeSelectValue,
   generatePeriodSelectOptions,
   formatSeconds,
+  getTotalActivitySeconds,
 };
