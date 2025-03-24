@@ -65,7 +65,9 @@ const generatePeriodSelectOptionsLabel = (periodInMinutes) => {
   return `${hours}:${minutes}`;
 };
 
-const generatePeriodSelectOptions = (periodsInMinutes) => {
+const generatePeriodSelectOptions = () => {
+  const periodsInMinutes = [15, 30, 45, 60, 90, 120, 150, 180];
+
   return periodsInMinutes.map((periodInMinutes) => ({
     value: periodInMinutes * SECONDS_IN_MINUTE,
     label: generatePeriodSelectOptionsLabel(periodInMinutes),
