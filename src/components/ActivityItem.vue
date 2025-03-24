@@ -4,6 +4,7 @@ import BaseButton from '@/components/BaseButton.vue';
 import BaseSelect from '@/components/BaseSelect.vue';
 import { PERIOD_SELECT_OPTIONS } from '@/constants';
 import { isNumber, isUndefined, isValidActivity } from '@/validators';
+import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue';
 
 const props = defineProps({
   activity: {
@@ -20,14 +21,18 @@ const emit = defineEmits({
 </script>
 
 <template>
-  <li class="flex flex-col gap-1">
-    <div class="flex items-center mx-7 gap-5">
+  <li class="flex flex-col gap-1 mt-2">
+    <div class="flex items-center m-5 gap-5">
       <BaseButton type="danger" @click="emit('removeActivity')">
         <TrashIcon class="size-8 p-1" />
       </BaseButton>
       <span class="w-full text-2xl truncate">{{ activity.name }}</span>
     </div>
-    <div>
+    <div class="flex items-center gap-5 px-5">
+      <ActivitySecondsToComplete
+        v-if="activity.secondsToComplete"
+        :seconds="activity.secondsToComplete"
+      />
       <BaseSelect
         :selected="activity.secondsToComplete || null"
         :options="PERIOD_SELECT_OPTIONS"

@@ -1,11 +1,7 @@
 <script setup>
 import { XMarkIcon } from '@heroicons/vue/24/outline';
 import BaseButton from './BaseButton.vue';
-import {
-  validateSelectOptions,
-  isUndefinedOrNull,
-  isSelectValueValid,
-} from '@/validators';
+import { isUndefinedOrNull, isSelectValueValid } from '@/validators';
 import { computed } from 'vue';
 import { normalizeSelectValue } from '@/functions';
 
@@ -39,7 +35,7 @@ const select = (value) => emit('select', normalizeSelectValue(value));
 </script>
 
 <template>
-  <div class="flex items-center justify-center p-7 gap-4">
+  <div class="flex items-center w-full justify-center gap-4">
     <select
       name="select"
       id="select"

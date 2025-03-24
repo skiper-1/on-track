@@ -6,6 +6,7 @@ import {
   SECONDS_IN_HOUR,
   SECONDS_IN_MINUTE,
   MINUTES_IN_HOUR,
+  MILLISECONDS_IN_SECOND,
 } from '@/constants';
 import { isNull } from './validators';
 
@@ -19,11 +20,16 @@ const normalizePageHash = () => {
   return PAGE_TIMELINE;
 };
 
-const generateTimelineItems = () => {
+const generateTimelineItems = (activities) => {
   const timelineItems = [];
 
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
-    timelineItems.push({ hour, activityId: null });
+    timelineItems.push({
+      hour,
+      activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
+      activitySeconds:
+        hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR,
+    });
   }
   return timelineItems;
 };
@@ -61,6 +67,16 @@ const generatePeriodSelectOptions = (periodsInMinutes) => {
   }));
 };
 
+const formatSeconds = (seconds) => {
+  const date = new Date();
+
+  date.setTime(Math.abs(seconds) * MILLISECONDS_IN_SECOND);
+
+  const utc = date.toUTCString();
+
+  return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6);
+};
+
 export {
   id,
   normalizePageHash,
@@ -69,4 +85,5 @@ export {
   generateActivities,
   normalizeSelectValue,
   generatePeriodSelectOptions,
+  formatSeconds,
 };

@@ -29,7 +29,7 @@ const setSecondsToComplete = (activity, secondsToCompleted) => {
 
 <template>
   <div class="flex flex-col grow">
-    <ul class="grow mt-5" v-if="activities.length">
+    <ul class="grow" v-if="activities.length">
       <ActivityItem
         v-for="activity in activities"
         :key="activity.id"

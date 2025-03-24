@@ -14,23 +14,30 @@ import {
 } from './functions';
 
 const currentPage = ref(normalizePageHash());
-
-const timelineItems = ref(generateTimelineItems());
-
 const activities = ref(generateActivities());
+const timeline = ref();
+const timelineItems = ref(generateTimelineItems(activities.value));
 
 const activitySelectOptions = computed(() =>
   generateActivitySelectOptions(activities.value)
 );
 
 const goTo = (page) => {
+  if (currentPage.value === PAGE_TIMELINE && page === PAGE_TIMELINE) {
+    timeline.value.scrollToHour();
+  }
+
+  if (page !== PAGE_TIMELINE) {
+    document.body.scrollIntoView();
+  }
+
   currentPage.value = page;
 };
 
 const removeActivity = (activity) => {
   timelineItems.value = timelineItems.value.map((timelineItem) => {
     if (timelineItem.activityId === activity.id) {
-      return { ...timelineItem, activityId: null };
+      return { ...timelineItem, activityId: null, activitySeconds: 0 };
     }
     return timelineItem;
   });
@@ -54,11 +61,13 @@ const setActivitySecondsToComplete = (activity, secondsToComplete) => {
   <div class="flex flex-col bg-gray-800 min-h-screen">
     <TheHeader @navigate="goTo($event)" />
     <TheTimeline
+      ref="timeline"
       class="flex-1"
       v-show="currentPage === PAGE_TIMELINE"
       :timeline-items="timelineItems"
       :activities="activities"
       :activity-select-options="activitySelectOptions"
+      :currentPage="currentPage"
       @set-timeline-item-activity="setTimelineItemActivity"
     />
     <TheActivities
