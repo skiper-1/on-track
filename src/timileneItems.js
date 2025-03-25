@@ -17,8 +17,8 @@ const timelineItems = ref(generateTimelineItems());
 const setTimelineItemActivity = (timelineItem, activityId) =>
   (timelineItem.activityId = activityId);
 
-const updateTimelineItemActivitySeconds = (timelineItem, secondsToComplete) => {
-  timelineItem.activitySeconds += secondsToComplete;
+const updateTimelineItemActivitySeconds = (timelineItem, activitySeconds) => {
+  timelineItem.activitySeconds = activitySeconds;
 };
 
 const resetTimelineItemActivities = (activity) => {
