@@ -8,6 +8,16 @@ import {
   BUTTON_TYPE_RESET,
 } from '@/constants';
 import { isButtonValid } from '@/validators';
+</script>
+
+<script setup>
+const props = defineProps({
+  type: {
+    default: BUTTON_TYPE_NEUTRAL,
+    type: String,
+    validator: isButtonValid,
+  },
+});
 
 const typeClasses = {
   [BUTTON_TYPE_DANGER]:
@@ -23,22 +33,8 @@ const typeClasses = {
   [BUTTON_TYPE_RESET]:
     'border-yellow-500 text-yellow-500 hover:text-yellow-300 focus:border-yellow-400 hover:border-yellow-300',
 };
-</script>
 
-<script setup>
-const props = defineProps({
-  type: {
-    default: BUTTON_TYPE_NEUTRAL,
-    type: String,
-    validator: isButtonValid,
-  },
-});
-</script>
-
-<template>
-  <button
-    p-2
-    :class="`border-2
+const classes = `border-2
     rounded-xl
     h-10
     bg-gradient-to-br
@@ -49,8 +45,11 @@ const props = defineProps({
     focus:outline-none
     disabled:opacity-50
     disabled:cursor-not-allowed
-    ${typeClasses[type]}`"
-  >
+    ${typeClasses[props.type]}`;
+</script>
+
+<template>
+  <button :class="classes">
     <slot></slot>
   </button>
 </template>

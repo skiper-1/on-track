@@ -5,11 +5,15 @@ const PAGE_TIMELINE = 'timeline';
 const PAGE_ACTIVITIES = 'activities';
 const PAGE_PROGRESS = 'progress';
 
-const NAV_ITEMS = {
-  [PAGE_TIMELINE]: ClockIcon,
-  [PAGE_ACTIVITIES]: ListBulletIcon,
-  [PAGE_PROGRESS]: ChartBarIcon,
-};
+const NAV_ITEMS = [
+  {
+    page: PAGE_TIMELINE,
+    icon: ClockIcon,
+  },
+  { page: PAGE_ACTIVITIES, icon: ListBulletIcon },
+  { page: PAGE_PROGRESS, icon: ChartBarIcon },
+];
+
 const SECONDS_IN_MINUTE = 60;
 const MINUTES_IN_HOUR = 60;
 const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR;

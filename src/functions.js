@@ -1,7 +1,5 @@
 import {
-  NAV_ITEMS,
   HOURS_IN_DAY,
-  PAGE_TIMELINE,
   MIDNIGHT_HOUR,
   SECONDS_IN_HOUR,
   SECONDS_IN_MINUTE,
@@ -10,25 +8,12 @@ import {
 } from '@/constants';
 import { isNull } from './validators';
 
-const normalizePageHash = () => {
-  let hash = window.location.hash.slice(1);
-
-  if (Object.keys(NAV_ITEMS).includes(hash)) {
-    return hash;
-  }
-  window.location.hash = PAGE_TIMELINE;
-  return PAGE_TIMELINE;
-};
-
 const generateTimelineItems = (activities) => {
   const timelineItems = [];
 
   for (let hour = MIDNIGHT_HOUR; hour < HOURS_IN_DAY; hour++) {
     timelineItems.push({
       hour,
-      // activityId: hour % 4 === 0 ? null : activities[hour % 2].id,
-      // activitySeconds:
-      //   hour % 4 === 0 ? 0 : (15 * SECONDS_IN_MINUTE * hour) % SECONDS_IN_HOUR,
 
       activityId: [0, 1, 2, 3, 4].includes(hour)
         ? activities[hour % 3].id
@@ -94,9 +79,10 @@ const getTotalActivitySeconds = (activity, timelineItems) => {
     );
 };
 
+const currentHour = () => new Date().getHours();
+
 export {
   id,
-  normalizePageHash,
   generateTimelineItems,
   generateActivitySelectOptions,
   generateActivities,
@@ -104,4 +90,5 @@ export {
   generatePeriodSelectOptions,
   formatSeconds,
   getTotalActivitySeconds,
+  currentHour,
 };

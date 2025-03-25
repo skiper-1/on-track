@@ -5,7 +5,10 @@ import {
   BUTTONS_TYPES,
 } from '@/constants';
 
-const isPageValid = (page) => Object.keys(NAV_ITEMS).includes(page);
+const isPageValid = (page) =>
+  NAV_ITEMS.some((navItem) => navItem.page === page);
+
+const isNavItemValid = (navItem) => NAV_ITEMS.includes(navItem);
 
 const isTimelineItemValid = ({ hour }) => isHourValid(hour);
 
@@ -73,4 +76,5 @@ export {
   isValidActivity,
   isButtonValid,
   isSelectValueValid,
+  isNavItemValid,
 };

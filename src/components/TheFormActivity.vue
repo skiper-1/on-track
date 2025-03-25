@@ -3,10 +3,11 @@ import { PlusIcon } from '@heroicons/vue/16/solid';
 import BaseButton from '@/components/BaseButton.vue';
 import { nextTick, ref, inject } from 'vue';
 import { id } from '@/functions';
+import { createActivityKey } from '@/keys';
 
 const name = ref('');
 
-const createActivity = inject('createActivity');
+const createActivity = inject(createActivityKey);
 
 const submit = async () => {
   createActivity({

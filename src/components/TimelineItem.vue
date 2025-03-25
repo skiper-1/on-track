@@ -1,10 +1,10 @@
 <script setup>
 import { inject } from 'vue';
-import { isTimelineItemValid, isHourValid } from '@/validators';
+import { isTimelineItemValid, isUndefined } from '@/validators';
 import BaseSelect from './BaseSelect.vue';
-
 import BaseHour from './BaseHour.vue';
 import TimelineStopwatch from './TimelineStopwatch.vue';
+import { activitySelectOptionsKey, setTimelineItemActivityKey } from '@/keys';
 
 const props = defineProps({
   timelineItem: {
@@ -15,21 +15,18 @@ const props = defineProps({
 });
 
 const emit = defineEmits({
-  scrollToHour: isHourValid,
+  scrollToHour: isUndefined,
 });
 
-const activitySelectOptions = inject('activitySelectOptions');
-const setTimelineItemActivity = inject('setTimelineItemActivity');
+const activitySelectOptions = inject(activitySelectOptionsKey);
+const setTimelineItemActivity = inject(setTimelineItemActivityKey);
 </script>
 
 <template>
   <li
     class="relative border-2 border-violet-700 m-2 p-5 rounded-2xl bg-gradient-to-bl from-gray-700/50 to-blue-900/50"
   >
-    <BaseHour
-      :hour="timelineItem.hour"
-      @click.prevent="emit('scrollToHour', timelineItem.hour)"
-    />
+    <BaseHour :hour="timelineItem.hour" @click.prevent="emit('scrollToHour')" />
     <BaseSelect
       :options="activitySelectOptions"
       placeholder="Rest"
