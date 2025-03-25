@@ -2,9 +2,9 @@
 import BaseButton from './BaseButton.vue';
 import { isTimelineItemValid } from '@/validators';
 import { PlayIcon, PauseIcon, ArrowPathIcon } from '@heroicons/vue/24/outline';
-import { ref, inject } from 'vue';
+import { ref } from 'vue';
 import { currentHour, formatSeconds } from '@/functions';
-import { updateTimelineItemActivitySecondsKey } from '@/keys';
+import { updateTimelineItemActivitySeconds } from '@/timileneItems';
 
 const props = defineProps({
   timelineItem: {
@@ -39,10 +39,6 @@ const reset = () => {
 
   seconds.value = 0;
 };
-
-const updateTimelineItemActivitySeconds = inject(
-  updateTimelineItemActivitySecondsKey
-);
 </script>
 
 <template>

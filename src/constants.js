@@ -1,5 +1,6 @@
 import { ListBulletIcon } from '@heroicons/vue/24/solid';
 import { ChartBarIcon, ClockIcon } from '@heroicons/vue/24/outline';
+import { generatePeriodSelectOptions } from './functions';
 
 const PAGE_TIMELINE = 'timeline';
 const PAGE_ACTIVITIES = 'activities';
@@ -37,6 +38,8 @@ const BUTTONS_TYPES = [
   BUTTON_TYPE_RESET,
 ];
 
+const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions();
+
 export {
   PAGE_TIMELINE,
   PAGE_ACTIVITIES,
@@ -55,4 +58,5 @@ export {
   SECONDS_IN_MINUTE,
   MINUTES_IN_HOUR,
   MILLISECONDS_IN_SECOND,
+  PERIOD_SELECT_OPTIONS,
 };

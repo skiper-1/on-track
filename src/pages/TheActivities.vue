@@ -1,15 +1,8 @@
 <script setup>
 import ActivityItem from '@/components/ActivityItem.vue';
 import TheFormActivity from '@/components/TheFormActivity.vue';
-
+import { activities } from '@/activities';
 import TheNoActivity from '@/components/TheNoActivity.vue';
-
-const props = defineProps({
-  activities: {
-    type: Array,
-    required: true,
-  },
-});
 </script>
 
 <template>
