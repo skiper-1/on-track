@@ -46,10 +46,12 @@ const getTotalActivitySeconds = (activity) => {
     );
 };
 
+let a = 1;
+
 export {
   timelineItems,
-  setTimelineItemActivity,
   resetTimelineItemActivities,
   updateTimelineItemActivitySeconds,
   getTotalActivitySeconds,
+  setTimelineItemActivity,
 };
