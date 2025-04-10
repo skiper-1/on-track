@@ -1,3 +1,17 @@
+<script setup>
+import ProgressItem from '@/components/ProgressItem.vue';
+import { trackedActivities } from '@/activities';
+</script>
+
 <template>
-  <div class="text-center">Progress</div>
+  <div class="">
+    <ul class="flex flex-col gap-2">
+      <ProgressItem
+        v-for="(activity, index) in trackedActivities"
+        :key="activity.id"
+        :index="index"
+        :activity="activity"
+      />
+    </ul>
+  </div>
 </template>

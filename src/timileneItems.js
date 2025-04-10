@@ -6,10 +6,8 @@ import { currentHour } from './functions';
 const generateTimelineItems = () => {
   return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,
-    activityId: [0, 1, 2, 3, 4].includes(hour)
-      ? activities.value[hour % 3].id
-      : null,
-    activitySeconds: [0, 1, 2, 3, 4].includes(hour) ? hour * 300 : 0,
+    activityId: null,
+    activitySeconds: 0,
   }));
 };
 
@@ -52,7 +50,7 @@ setTimeout(initializeTimelineItems, 0);
 
 const getTotalActivitySeconds = (activity) => {
   return timelineItems.value
-    .filter((timelineItem) => hasActivity(timelineItem, activity.id))
+    .filter((timelineItem) => hasActivity(timelineItem, activity))
     .reduce(
       (totalSeconds, timelineItem) =>
         Math.round(timelineItem.activitySeconds + totalSeconds),

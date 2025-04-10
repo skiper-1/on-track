@@ -2,6 +2,9 @@ import {
   SECONDS_IN_MINUTE,
   MINUTES_IN_HOUR,
   MILLISECONDS_IN_SECOND,
+  LOW_PERCENT,
+  MEDIUM_PERCENT,
+  HUNDRED_PERCENT,
 } from '@/constants';
 import { isNull } from './validators';
 
@@ -41,10 +44,18 @@ const formatSeconds = (seconds) => {
 
 const currentHour = () => new Date().getHours();
 
+const getColorClass = (percent) => {
+  if (percent < LOW_PERCENT) return 'bg-red-500';
+  if (percent < MEDIUM_PERCENT) return 'bg-yellow-500';
+  if (percent < HUNDRED_PERCENT) return 'bg-green-500';
+
+  return 'bg-blue-500';
+};
 export {
   id,
   normalizeSelectValue,
   generatePeriodSelectOptions,
   formatSeconds,
   currentHour,
+  getColorClass,
 };
