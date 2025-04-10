@@ -45,7 +45,6 @@ const deleteAndResetActivity = (activity) => {
             secondsToComplete: $event || 0,
           })
         "
-        @reset="activity.secondsToComplete = null"
       />
     </div>
   </li>

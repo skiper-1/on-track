@@ -41,12 +41,14 @@ const select = (value) => emit('select', normalizeSelectValue(value));
       </option>
       <option
         v-for="{ value, label } in props.options"
+        :key="value"
         :value="value"
         :selected="props.selected === value"
       >
         {{ label }}
       </option>
     </select>
+
     <BaseButton @click="$emit('reset')">
       <BaseIcon :name="ICON_XMARK" class="size-8" />
     </BaseButton>
