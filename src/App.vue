@@ -1,19 +1,16 @@
 <script setup>
 import TheNav from '@/components/TheNav.vue';
 import TheHeader from '@/components/TheHeader.vue';
-import TheTimeline from './pages/TheTimeline.vue';
-import TheActivities from './pages/TheActivities.vue';
-import TheProgress from './pages/TheProgress.vue';
-import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from '@/constants';
-import { currentPage } from './router';
+
+import { currentPage, routes } from './router';
 </script>
 
 <template>
   <div class="flex flex-col bg-gray-800 min-h-screen">
     <TheHeader />
-    <TheTimeline class="flex-1" v-show="currentPage === PAGE_TIMELINE" />
-    <TheActivities class="flex-1" v-show="currentPage === PAGE_ACTIVITIES" />
-    <TheProgress class="flex-1" v-show="currentPage === PAGE_PROGRESS" />
+    <keep-alive>
+      <component :is="routes[currentPage]" class="min-h-[100vh]" />
+    </keep-alive>
     <TheNav />
   </div>
 </template>

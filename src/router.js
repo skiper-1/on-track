@@ -1,6 +1,15 @@
 import { ref } from 'vue';
-import { PAGE_TIMELINE } from './constants';
 import { isPageValid } from './validators';
+import TheTimeline from './pages/TheTimeline.vue';
+import TheActivities from './pages/TheActivities.vue';
+import TheProgress from './pages/TheProgress.vue';
+import { PAGE_TIMELINE, PAGE_ACTIVITIES, PAGE_PROGRESS } from '@/constants';
+
+const routes = {
+  [PAGE_TIMELINE]: TheTimeline,
+  [PAGE_ACTIVITIES]: TheActivities,
+  [PAGE_PROGRESS]: TheProgress,
+};
 
 const normalizePageHash = () => {
   let page = window.location.hash.slice(1);
@@ -19,4 +28,4 @@ const navigate = (page) => {
   currentPage.value = page;
 };
 
-export { currentPage, navigate, normalizePageHash };
+export { currentPage, navigate, normalizePageHash, routes };
