@@ -37,7 +37,10 @@ const getActivityProgress = (activity) =>
   );
 
 const generateActivitySelectOptions = (activities) =>
-  activities.map((activity) => ({ label: activity.name, value: activity.id }));
+  activities.map((activity) => ({
+    label: activity.name,
+    value: activity.id,
+  }));
 
 export {
   activities,

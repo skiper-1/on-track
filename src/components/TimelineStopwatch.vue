@@ -24,7 +24,9 @@ const isStartButtonDisabled = props.timelineItem.hour !== currentHour();
 watch(
   () => props.timelineItem.activityId,
   () => {
-    updateTimelineItem(props.timelineItem, { actiitySeconds: seconds.value });
+    updateTimelineItem(props.timelineItem, {
+      actiitySeconds: seconds.value,
+    });
   }
 );
 

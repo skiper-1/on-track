@@ -29,7 +29,8 @@ const progress = computed(() => getActivityProgress(props.activity));
       <div class="flex justify-between px-10 py-2">
         <span>{{ progress }} %</span>
         <span
-          >{{ formatSeconds(getTotalActivitySeconds(activity)) }} /
+          >{{ formatSeconds(getTotalActivitySeconds(activity)) }}
+          /
           {{ formatSeconds(activity.secondsToComplete) }}</span
         >
       </div>

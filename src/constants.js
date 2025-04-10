@@ -9,8 +9,14 @@ const NAV_ITEMS = [
     page: PAGE_TIMELINE,
     icon: ICON_CLOCK,
   },
-  { page: PAGE_ACTIVITIES, icon: ICON_LIST_BULLET },
-  { page: PAGE_PROGRESS, icon: ICON_CHART_BAR },
+  {
+    page: PAGE_ACTIVITIES,
+    icon: ICON_LIST_BULLET,
+  },
+  {
+    page: PAGE_PROGRESS,
+    icon: ICON_CHART_BAR,
+  },
 ];
 
 const SECONDS_IN_MINUTE = 60;

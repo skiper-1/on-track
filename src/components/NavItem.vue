@@ -22,13 +22,17 @@ const props = defineProps({
         :name="navItem.icon"
         :class="[
           'h-12 text-gray-700 rounded-2xl bg-gradient-to-br from-green-500 to-blue-500 p-1',
-          { 'from-red-500 to-yellow-500': currentPage === navItem.page },
+          {
+            'from-red-500 to-yellow-500': currentPage === navItem.page,
+          },
         ]"
       />
       <div
         :class="[
           'text-xl text-gray-400 capitalize',
-          { 'text-white': currentPage === navItem.page },
+          {
+            'text-white': currentPage === navItem.page,
+          },
         ]"
       >
         {{ navItem.page }}

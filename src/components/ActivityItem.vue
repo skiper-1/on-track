@@ -40,7 +40,11 @@ const deleteAndResetActivity = (activity) => {
         :selected="activity.secondsToComplete || null"
         :options="PERIOD_SELECT_OPTIONS"
         placeholder="hh:mm"
-        @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
+        @select="
+          updateActivity(activity, {
+            secondsToComplete: $event || 0,
+          })
+        "
         @reset="activity.secondsToComplete = null"
       />
     </div>

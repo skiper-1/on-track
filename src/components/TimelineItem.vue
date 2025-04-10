@@ -24,7 +24,11 @@ const props = defineProps({
       :options="activitySelectOptions"
       placeholder="Rest"
       :selected="timelineItem.activityId"
-      @select="updateTimelineItem(timelineItem, { activityId: $event })"
+      @select="
+        updateTimelineItem(timelineItem, {
+          activityId: $event,
+        })
+      "
     />
     <TimelineStopwatch :timelineItem="timelineItem" />
   </li>

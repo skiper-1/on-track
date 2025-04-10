@@ -28,7 +28,9 @@ const scrollToHour = (hour, isSmooth = true) => {
       ? document.body
       : timelineItemsRefs.value[hour - 1].$el;
 
-  el.scrollIntoView({ behavior: isSmooth ? 'smooth' : 'instant' });
+  el.scrollIntoView({
+    behavior: isSmooth ? 'smooth' : 'instant',
+  });
 };
 
 const updateTimelineItem = (timelineItem, fields) =>
@@ -38,7 +40,10 @@ const resetTimelineItemActivities = (activity) => {
   timelineItems.value
     .filter((timelineItem) => hasActivity(timelineItem, activity.id))
     .forEach((timelineItem) =>
-      updateTimelineItem(timelineItem, { activityId: null, activitySeconds: 0 })
+      updateTimelineItem(timelineItem, {
+        activityId: null,
+        activitySeconds: 0,
+      })
     );
 };
 

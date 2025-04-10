@@ -8,8 +8,8 @@ import { currentPage, routes } from './router';
   <div class="flex flex-col bg-gray-800 min-h-screen">
     <TheHeader />
     <keep-alive>
-      <component :is="routes[currentPage]" class="min-h-[100vh]" />
-    </keep-alive>
+      <component :is="routes[currentPage]" class="min-h-[100vh]"
+    /></keep-alive>
     <TheNav />
   </div>
 </template>
