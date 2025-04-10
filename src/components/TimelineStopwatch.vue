@@ -56,13 +56,13 @@ const reset = () => {
 <template>
   <div class="flex w-full pt-2">
     <BaseButton type="reset" @click="reset" :disabled="!seconds">
-      <BaseIcon :name="ICON_ARROW_PATH" class="size-8" />
+      <BaseIcon :name="ICON_ARROW_PATH" />
     </BaseButton>
     <div class="flex flex-grow items-center justify-center text-xl">
       {{ formatSeconds(seconds) }}
     </div>
     <BaseButton type="pause" @click="stop" v-show="isRunning">
-      <BaseIcon :name="ICON_PAUSE" class="size-8" />
+      <BaseIcon :name="ICON_PAUSE" />
     </BaseButton>
     <BaseButton
       type="play"
@@ -70,7 +70,7 @@ const reset = () => {
       v-show="!isRunning"
       :disabled="isStartButtonDisabled"
     >
-      <BaseIcon :name="ICON_PLAY" class="size-8" />
+      <BaseIcon :name="ICON_PLAY" />
     </BaseButton>
   </div>
 </template>

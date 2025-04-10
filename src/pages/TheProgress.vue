@@ -7,9 +7,8 @@ import { trackedActivities } from '@/activities';
   <div class="">
     <ul class="flex flex-col gap-2">
       <ProgressItem
-        v-for="(activity, index) in trackedActivities"
+        v-for="activity in trackedActivities"
         :key="activity.id"
-        :index="index"
         :activity="activity"
       />
     </ul>

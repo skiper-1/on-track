@@ -1,20 +1,15 @@
 <script setup>
 import { computed } from 'vue';
 import { getActivityProgress } from '@/activities';
-import { getColorClass } from '@/functions';
+import { getColorClass, formatSeconds } from '@/functions';
+import { getTotalActivitySeconds } from '@/timileneItems';
 
 const props = defineProps({
-  index: {
-    type: Number,
-  },
   activity: {
     type: Object,
+    required: true,
   },
 });
-
-const timeProgress = ['03:00 / 30:00', '10:00 / 30:00', '25:00 / 30:00'][
-  props.index
-];
 
 const progress = computed(() => getActivityProgress(props.activity));
 </script>
@@ -33,7 +28,10 @@ const progress = computed(() => getActivityProgress(props.activity));
       </div>
       <div class="flex justify-between px-10 py-2">
         <span>{{ progress }} %</span>
-        <span>{{ timeProgress }}</span>
+        <span
+          >{{ formatSeconds(getTotalActivitySeconds(activity)) }} /
+          {{ formatSeconds(activity.secondsToComplete) }}</span
+        >
       </div>
     </div>
   </li>

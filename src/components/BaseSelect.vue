@@ -23,10 +23,6 @@ const props = defineProps({
 
 const emit = defineEmits({
   select: isSelectValueValid,
-
-  reset() {
-    return true;
-  },
 });
 
 const select = (value) => emit('select', normalizeSelectValue(value));

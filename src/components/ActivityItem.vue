@@ -27,7 +27,7 @@ const deleteAndResetActivity = (activity) => {
   <li class="flex flex-col gap-1 mt-2">
     <div class="flex items-center m-5 gap-5">
       <BaseButton type="danger" @click="deleteAndResetActivity(activity)">
-        <BaseIcon :name="ICON_TRASH" class="size-8 p-1" />
+        <BaseIcon :name="ICON_TRASH" class="size-8" />
       </BaseButton>
       <span class="w-full text-2xl truncate">{{ activity.name }}</span>
     </div>
