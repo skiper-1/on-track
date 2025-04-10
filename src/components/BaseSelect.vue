@@ -1,8 +1,8 @@
 <script setup>
-import { XMarkIcon } from '@heroicons/vue/24/outline';
+import BaseIcon from './BaseIcon.vue';
 import BaseButton from './BaseButton.vue';
-import { isUndefinedOrNull, isSelectValueValid } from '@/validators';
-import { computed } from 'vue';
+import { isSelectValueValid } from '@/validators';
+import { ICON_XMARK } from '@/icons';
 import { normalizeSelectValue } from '@/functions';
 
 const props = defineProps({
@@ -29,8 +29,6 @@ const emit = defineEmits({
   },
 });
 
-const isNotSelected = computed(() => isUndefinedOrNull(props.selected));
-
 const select = (value) => emit('select', normalizeSelectValue(value));
 </script>
 
@@ -42,7 +40,7 @@ const select = (value) => emit('select', normalizeSelectValue(value));
       class="border-2 border-green-600/70 w-full rounded-xl h-10 px-2 hover:border-green-400 focus:outline-none focus:border-green-500"
       @change="select($event.target.value)"
     >
-      <option value="0" disabled :selected="isNotSelected">
+      <option value="0" disabled :selected="isnotselected">
         {{ placeholder }}
       </option>
       <option
@@ -54,7 +52,7 @@ const select = (value) => emit('select', normalizeSelectValue(value));
       </option>
     </select>
     <BaseButton @click="$emit('reset')">
-      <XMarkIcon class="size-8" />
+      <BaseIcon :name="ICON_XMARK" class="size-8" />
     </BaseButton>
   </div>
 </template>

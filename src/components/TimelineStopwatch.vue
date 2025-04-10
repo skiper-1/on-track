@@ -1,10 +1,11 @@
 <script setup>
 import BaseButton from './BaseButton.vue';
 import { isTimelineItemValid } from '@/validators';
-import { PlayIcon, PauseIcon, ArrowPathIcon } from '@heroicons/vue/24/outline';
 import { ref, watch } from 'vue';
 import { currentHour, formatSeconds } from '@/functions';
 import { updateTimelineItem } from '@/timileneItems';
+import BaseIcon from './BaseIcon.vue';
+import { ICON_PAUSE, ICON_PLAY, ICON_ARROW_PATH } from '@/icons';
 
 const props = defineProps({
   timelineItem: {
@@ -55,13 +56,13 @@ const reset = () => {
 <template>
   <div class="flex w-full pt-2">
     <BaseButton type="reset" @click="reset" :disabled="!seconds">
-      <ArrowPathIcon class="size-8" />
+      <BaseIcon :name="ICON_ARROW_PATH" class="size-8" />
     </BaseButton>
     <div class="flex flex-grow items-center justify-center text-xl">
       {{ formatSeconds(seconds) }}
     </div>
     <BaseButton type="pause" @click="stop" v-show="isRunning">
-      <PauseIcon class="size-8" />
+      <BaseIcon :name="ICON_PAUSE" class="size-8" />
     </BaseButton>
     <BaseButton
       type="play"
@@ -69,7 +70,7 @@ const reset = () => {
       v-show="!isRunning"
       :disabled="isStartButtonDisabled"
     >
-      <PlayIcon class="size-8" />
+      <BaseIcon :name="ICON_PLAY" class="size-8" />
     </BaseButton>
   </div>
 </template>

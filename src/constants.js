@@ -1,7 +1,5 @@
-import { ListBulletIcon } from '@heroicons/vue/24/solid';
-import { ChartBarIcon, ClockIcon } from '@heroicons/vue/24/outline';
 import { generatePeriodSelectOptions } from './functions';
-
+import { ICON_CLOCK, ICON_LIST_BULLET, ICON_CHART_BAR } from './icons';
 const PAGE_TIMELINE = 'timeline';
 const PAGE_ACTIVITIES = 'activities';
 const PAGE_PROGRESS = 'progress';
@@ -9,10 +7,10 @@ const PAGE_PROGRESS = 'progress';
 const NAV_ITEMS = [
   {
     page: PAGE_TIMELINE,
-    icon: ClockIcon,
+    icon: ICON_CLOCK,
   },
-  { page: PAGE_ACTIVITIES, icon: ListBulletIcon },
-  { page: PAGE_PROGRESS, icon: ChartBarIcon },
+  { page: PAGE_ACTIVITIES, icon: ICON_LIST_BULLET },
+  { page: PAGE_PROGRESS, icon: ICON_CHART_BAR },
 ];
 
 const SECONDS_IN_MINUTE = 60;

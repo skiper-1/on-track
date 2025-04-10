@@ -4,6 +4,7 @@ import {
   NAV_ITEMS,
   BUTTONS_TYPES,
 } from '@/constants';
+import { ICONS } from './icons';
 
 const isPageValid = (page) =>
   NAV_ITEMS.some((navItem) => navItem.page === page);
@@ -61,6 +62,10 @@ const isButtonValid = (button) => BUTTONS_TYPES.includes(button);
 const isSelectValueValid = (value) =>
   isNotEmptyString(value) || isNumberOrNull(value);
 
+const isIconValid = (icon) => {
+  return Object.keys(ICONS).includes(icon);
+};
+
 export {
   isNull,
   isUndefined,
@@ -77,4 +82,5 @@ export {
   isButtonValid,
   isSelectValueValid,
   isNavItemValid,
+  isIconValid,
 };

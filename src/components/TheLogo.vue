@@ -1,5 +1,5 @@
 <script setup>
-import { BoltIcon } from '@heroicons/vue/24/solid';
+import BaseIcon from './BaseIcon.vue';
 import { PAGE_TIMELINE } from '@/constants';
 import { navigate, currentPage } from '@/router';
 import { scrollToCurrentHour } from '@/timileneItems.js';
@@ -17,7 +17,8 @@ const handleClick = () => {
     class="flex items-center gap-1"
     @click="handleClick"
   >
-    <BoltIcon
+    <BaseIcon
+      name="Bolt"
       class="text-green-500 h-15 bg-gradient-to-tr from-blue-600 to-violet-900 rounded-2xl border-2 border-green-500 p-2"
     />
     <span

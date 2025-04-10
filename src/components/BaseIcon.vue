@@ -1,0 +1,16 @@
+<script setup>
+import { ICONS } from '@/icons';
+import { isIconValid } from '@/validators';
+
+const props = defineProps({
+  name: {
+    required: true,
+    type: String,
+    validator: isIconValid,
+  },
+});
+</script>
+
+<template>
+  <component :is="ICONS[name]" />
+</template>
