@@ -16,16 +16,14 @@ const activitySelectOptions = computed(() =>
   generateActivitySelectOptions(activities.value)
 );
 
-const deleteActivity = (activity) => {
-  activities.value.splice(activities.value.indexOf(activity), 1);
-};
-
 const createActivity = (activity) => {
   activities.value.push(activity);
 };
 
-const setActivitySecondsToComplete = (activity, secondsToComplete) => {
-  activity.secondsToComplete = secondsToComplete || 0;
+const updateActivity = (activity, fields) => Object.assign(activity, fields);
+
+const deleteActivity = (activity) => {
+  activities.value.splice(activities.value.indexOf(activity), 1);
 };
 
 const generateActivitySelectOptions = (activities) =>
@@ -34,7 +32,7 @@ const generateActivitySelectOptions = (activities) =>
 export {
   activities,
   createActivity,
+  updateActivity,
   deleteActivity,
   activitySelectOptions,
-  setActivitySecondsToComplete,
 };

@@ -14,20 +14,18 @@ const generateTimelineItems = () => {
 
 const timelineItems = ref(generateTimelineItems());
 
-const setTimelineItemActivity = (timelineItem, activityId) =>
-  (timelineItem.activityId = activityId);
+const hasActivity = (timelineItem, activity) =>
+  timelineItem.activityId === activity.id;
 
-const updateTimelineItemActivitySeconds = (timelineItem, activitySeconds) => {
-  timelineItem.activitySeconds = activitySeconds;
-};
+const updateTimelineItem = (timelineItem, fields) =>
+  Object.assign(timelineItem, fields);
 
 const resetTimelineItemActivities = (activity) => {
-  timelineItems.value.forEach((timelineItem) => {
-    if (timelineItem.activityId === activity.id) {
-      timelineItem.activityId = null;
-      timelineItem.activitySeconds = 0;
-    }
-  });
+  timelineItems.value
+    .filter((timelineItem) => hasActivity(timelineItem, activity.id))
+    .forEach((timelineItem) =>
+      updateTimelineItem(timelineItem, { activityId: null, activitySeconds: 0 })
+    );
 };
 
 const initializeTimelineItems = () => {
@@ -38,7 +36,7 @@ setTimeout(initializeTimelineItems, 0);
 
 const getTotalActivitySeconds = (activity) => {
   return timelineItems.value
-    .filter((timelineItem) => timelineItem.activityId === activity.id)
+    .filter((timelineItem) => hasActivity(timelineItem, activity.id))
     .reduce(
       (totalSeconds, timelineItem) =>
         Math.round(timelineItem.activitySeconds + totalSeconds),
@@ -46,12 +44,11 @@ const getTotalActivitySeconds = (activity) => {
     );
 };
 
-let a = 1;
-
 export {
   timelineItems,
   resetTimelineItemActivities,
-  updateTimelineItemActivitySeconds,
+  // setTimelineItemActivity,
+  // updateTimelineItemActivitySeconds,
   getTotalActivitySeconds,
-  setTimelineItemActivity,
+  updateTimelineItem,
 };

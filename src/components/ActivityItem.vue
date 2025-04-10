@@ -4,7 +4,7 @@ import BaseButton from '@/components/BaseButton.vue';
 import BaseSelect from '@/components/BaseSelect.vue';
 import { isValidActivity } from '@/validators';
 import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue';
-import { setActivitySecondsToComplete, deleteActivity } from '@/activities';
+import { updateActivity, deleteActivity } from '@/activities';
 import { PERIOD_SELECT_OPTIONS } from '@/constants';
 import { resetTimelineItemActivities } from '@/timileneItems';
 
@@ -39,7 +39,7 @@ const deleteAndResetActivity = (activity) => {
         :selected="activity.secondsToComplete || null"
         :options="PERIOD_SELECT_OPTIONS"
         placeholder="hh:mm"
-        @select="setActivitySecondsToComplete(activity, $event)"
+        @select="updateActivity(activity, { secondsToComplete: $event || 0 })"
         @reset="activity.secondsToComplete = null"
       />
     </div>
