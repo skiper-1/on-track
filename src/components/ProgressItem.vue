@@ -1,8 +1,11 @@
 <script setup>
 import { computed } from 'vue';
-import { getActivityProgress } from '@/activities';
+import { calculateActivityCompletionPercentage } from '@/activities';
 import { getColorClass, formatSeconds } from '@/functions';
-import { getTotalActivitySeconds } from '@/timileneItems';
+import {
+  calculateTrackedActivitySeconds,
+  timelineItems,
+} from '@/timileneItems';
 
 const props = defineProps({
   activity: {
@@ -11,7 +14,16 @@ const props = defineProps({
   },
 });
 
-const progress = computed(() => getActivityProgress(props.activity));
+const percentage = computed(() =>
+  calculateActivityCompletionPercentage(
+    props.activity,
+    trackedActivitySeconds.value
+  )
+);
+
+const trackedActivitySeconds = computed(() =>
+  calculateTrackedActivitySeconds(timelineItems.value, props.activity)
+);
 </script>
 
 <template>
@@ -22,14 +34,14 @@ const progress = computed(() => getActivityProgress(props.activity));
       </div>
       <div class="mx-5 flex h-5 overflow-hidden rounded-xl">
         <div
-          :class="getColorClass(progress)"
-          :style="`width: ${progress}%`"
+          :class="getColorClass(percentage)"
+          :style="`width: ${percentage}%`"
         ></div>
       </div>
       <div class="flex justify-between px-10 py-2">
-        <span>{{ progress }} %</span>
+        <span>{{ percentage }} %</span>
         <span
-          >{{ formatSeconds(getTotalActivitySeconds(activity)) }}
+          >{{ formatSeconds(trackedActivitySeconds) }}
           /
           {{ formatSeconds(activity.secondsToComplete) }}</span
         >

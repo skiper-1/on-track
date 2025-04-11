@@ -1,5 +1,4 @@
 import { ref } from 'vue';
-import { activities } from './activities';
 import { HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants';
 import { currentHour } from './functions';
 
@@ -15,8 +14,8 @@ const timelineItems = ref(generateTimelineItems());
 
 const timelineItemsRefs = ref([]);
 
-const hasActivity = (timelineItem, activity) =>
-  timelineItem.activityId === activity.id;
+const filterTimelineItemsByActivity = (timelineItems, { id }) =>
+  timelineItems.filter(({ activityId }) => activityId === id);
 
 const scrollToCurrentHour = (isSmooth = true) => {
   scrollToHour(currentHour(), isSmooth);
@@ -36,15 +35,14 @@ const scrollToHour = (hour, isSmooth = true) => {
 const updateTimelineItem = (timelineItem, fields) =>
   Object.assign(timelineItem, fields);
 
-const resetTimelineItemActivities = (activity) => {
-  timelineItems.value
-    .filter((timelineItem) => hasActivity(timelineItem, activity.id))
-    .forEach((timelineItem) =>
+const resetTimelineItemActivities = (timelineItems, activity) => {
+  filterTimelineItemsByActivity(timelineItems, activity).forEach(
+    (timelineItem) =>
       updateTimelineItem(timelineItem, {
         activityId: null,
         activitySeconds: 0,
       })
-    );
+  );
 };
 
 const initializeTimelineItems = () => {
@@ -53,21 +51,16 @@ const initializeTimelineItems = () => {
 
 setTimeout(initializeTimelineItems, 0);
 
-const getTotalActivitySeconds = (activity) => {
-  return timelineItems.value
-    .filter((timelineItem) => hasActivity(timelineItem, activity))
-    .reduce(
-      (totalSeconds, timelineItem) =>
-        Math.round(timelineItem.activitySeconds + totalSeconds),
-      0
-    );
-};
+const calculateTrackedActivitySeconds = (timelineItems, activity) =>
+  filterTimelineItemsByActivity(timelineItems, activity)
+    .map(({ activitySeconds }) => activitySeconds)
+    .reduce((total, seconds) => Math.round(total + seconds), 0);
 
 export {
   timelineItems,
   timelineItemsRefs,
   resetTimelineItemActivities,
-  getTotalActivitySeconds,
+  calculateTrackedActivitySeconds,
   updateTimelineItem,
   scrollToHour,
   scrollToCurrentHour,

@@ -39,6 +39,7 @@ const select = (value) => emit('select', normalizeSelectValue(value));
       <option value="0" disabled :selected="isnotselected">
         {{ placeholder }}
       </option>
+
       <option
         v-for="{ value, label } in props.options"
         :key="value"

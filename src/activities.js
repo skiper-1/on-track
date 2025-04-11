@@ -1,7 +1,6 @@
 import { id } from '@/functions';
 import { computed, ref } from 'vue';
-import { SECONDS_IN_HOUR } from './constants';
-import { getTotalActivitySeconds } from '@/timileneItems';
+import { calculateTrackedActivitySeconds } from '@/timileneItems';
 
 const generateActivities = () => {
   return ['Coding', 'Reading', 'Training'].map((name, hours) => ({
@@ -31,10 +30,10 @@ const deleteActivity = (activity) => {
   activities.value.splice(activities.value.indexOf(activity), 1);
 };
 
-const getActivityProgress = (activity) =>
-  Math.round(
-    (getTotalActivitySeconds(activity) * 100) / activity.secondsToComplete
-  );
+const calculateActivityCompletionPercentage = (
+  { secondsToComplete },
+  trackedSeconds
+) => Math.round((trackedSeconds * 100) / secondsToComplete);
 
 const generateActivitySelectOptions = (activities) =>
   activities.map((activity) => ({
@@ -49,5 +48,5 @@ export {
   deleteActivity,
   activitySelectOptions,
   trackedActivities,
-  getActivityProgress,
+  calculateActivityCompletionPercentage,
 };

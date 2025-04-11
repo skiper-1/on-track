@@ -18,7 +18,7 @@ const props = defineProps({
 });
 
 const deleteAndResetActivity = (activity) => {
-  resetTimelineItemActivities(activity);
+  resetTimelineItemActivities(timelineItems.value, activity);
   deleteActivity(activity);
 };
 </script>
