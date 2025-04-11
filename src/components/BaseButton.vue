@@ -34,7 +34,8 @@ const typeClasses = {
     'border-yellow-500 text-yellow-500 hover:text-yellow-300 focus:border-yellow-400 hover:border-yellow-300',
 };
 
-const classes = `border-2
+const classes = [
+  `border-2
     rounded-xl
     h-10
     bg-gradient-to-br
@@ -44,12 +45,13 @@ const classes = `border-2
     items-center
     focus:outline-none
     disabled:opacity-50
-    disabled:cursor-not-allowed
-    ${typeClasses[props.type]}`;
+    disabled:cursor-not-allowed`,
+  typeClasses[props.type],
+];
 </script>
 
 <template>
   <button :class="classes">
-    <slot></slot>
+    <slot />
   </button>
 </template>

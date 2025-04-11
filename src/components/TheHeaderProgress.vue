@@ -1,22 +1,28 @@
 <script setup>
 import { ICON_CHECK_CIRCLE } from '@/icons';
-import { PAGE_PROGRESS } from '@/constants';
+import { HUNDRED_PERCENT, PAGE_PROGRESS } from '@/constants';
 import { navigate } from '@/router';
 import BaseIcon from './BaseIcon.vue';
+import { useTotalProgress } from '@/composables/total-progress';
+
+const { colorClass, percentage } = useTotalProgress();
+
+console.log(percentage.value);
 </script>
 
 <template>
   <a :href="`#${PAGE_PROGRESS}`" @click="navigate(PAGE_PROGRESS)">
-    <div v-if="true" class="flex gap-2 items-center">
-      <div>Day complete!</div>
-      <BaseIcon :name="ICON_CHECK_CIRCLE" class="h-8 text-lime-500" />
-    </div>
-    <div v-else class="flex gap-2">
+    <div v-if="percentage < 100" class="flex gap-2 items-center">
       <div>
         Progress:
-        <span>20%</span>
+        <span>{{ percentage }}</span>
       </div>
-      <div class="h-5 w-5 bg-red-500 rounded-full"></div>
+      <div :class="['h-5 w-5 rounded-full', colorClass]"></div>
+    </div>
+    <div v-else class="flex gap-2">
+      <div>Day complete!</div>
+
+      <BaseIcon :name="ICON_CHECK_CIRCLE" class="h-8 text-lime-400" />
     </div>
   </a>
 </template>

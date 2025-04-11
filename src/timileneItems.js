@@ -2,13 +2,12 @@ import { ref } from 'vue';
 import { HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants';
 import { currentHour } from './functions';
 
-const generateTimelineItems = () => {
-  return [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
+const generateTimelineItems = () =>
+  [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
     hour,
     activityId: null,
     activitySeconds: 0,
   }));
-};
 
 const timelineItems = ref(generateTimelineItems());
 

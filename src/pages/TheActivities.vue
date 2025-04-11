@@ -6,7 +6,7 @@ import TheNoActivity from '@/components/TheNoActivity.vue';
 </script>
 
 <template>
-  <div class="flex flex-col grow">
+  <div class="flex flex-col">
     <ul class="grow" v-if="activities.length">
       <ActivityItem
         v-for="activity in activities"

@@ -10,17 +10,20 @@ const useProgress = (activity) => {
   const colorClass = computed(() => getColorClass(percentage));
 
   const percentage = computed(() =>
-    calculateActivityCompletionPercentage(activity, trackedSeconds.value)
+    calculateActivityCompletionPercentage(
+      activity,
+      trackedActivitySeconds.value
+    )
   );
 
-  const trackedSeconds = computed(() =>
+  const trackedActivitySeconds = computed(() =>
     calculateTrackedActivitySeconds(timelineItems.value, activity)
   );
 
   return {
     colorClass,
     percentage,
-    trackedSeconds,
+    trackedActivitySeconds,
   };
 };
 

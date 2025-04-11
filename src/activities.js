@@ -12,6 +12,12 @@ const generateActivities = () => {
 
 const activities = ref(generateActivities());
 
+const totalActivitySecondsToComplete = computed(() =>
+  trackedActivities.value
+    .map(({ secondsToComplete }) => secondsToComplete)
+    .reduce((total, seconds) => total + seconds, 0)
+);
+
 const trackedActivities = computed(() =>
   activities.value.filter(({ secondsToComplete }) => secondsToComplete)
 );
@@ -35,6 +41,11 @@ const calculateActivityCompletionPercentage = (
   trackedSeconds
 ) => Math.round((trackedSeconds * 100) / secondsToComplete);
 
+const calculateCompletionPercentage = (totalTrackedSeconds) =>
+  Math.round(
+    (totalTrackedSeconds * 100) / totalActivitySecondsToComplete.value
+  );
+
 const generateActivitySelectOptions = (activities) =>
   activities.map((activity) => ({
     label: activity.name,
@@ -49,4 +60,5 @@ export {
   activitySelectOptions,
   trackedActivities,
   calculateActivityCompletionPercentage,
+  calculateCompletionPercentage,
 };

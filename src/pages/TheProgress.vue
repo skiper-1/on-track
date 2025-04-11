@@ -1,16 +1,16 @@
 <script setup>
 import ProgressItem from '@/components/ProgressItem.vue';
-import { trackedActivities } from '@/activities';
+import { activities, trackedActivities } from '@/activities';
+import TheNoActivity from '@/components/TheNoActivity.vue';
 </script>
 
 <template>
-  <div class="">
-    <ul class="flex flex-col gap-2">
-      <ProgressItem
-        v-for="activity in trackedActivities"
-        :key="activity.id"
-        :activity="activity"
-      />
-    </ul>
-  </div>
+  <ul class="flex flex-col" v-if="activities.length">
+    <ProgressItem
+      v-for="activity in trackedActivities"
+      :key="activity.id"
+      :activity="activity"
+    />
+  </ul>
+  <TheNoActivity v-else />
 </template>

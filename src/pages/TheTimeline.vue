@@ -6,21 +6,21 @@ import {
   timelineItemsRefs,
   scrollToCurrentHour,
 } from '@/timileneItems.js';
+import TheTimelineIndicator from '@/components/TheTimelineIndicator.vue';
 
 onActivated(() => scrollToCurrentHour(false));
 </script>
 
 <template>
-  <div>
-    <div>
-      <ul>
-        <TimelineItem
-          v-for="timelineItem in timelineItems"
-          ref="timelineItemsRefs"
-          :key="timelineItem"
-          :timeline-item="timelineItem"
-        />
-      </ul>
-    </div>
+  <div class="relative">
+    <TheTimelineIndicator />
+    <ul>
+      <TimelineItem
+        v-for="timelineItem in timelineItems"
+        ref="timelineItemsRefs"
+        :key="timelineItem"
+        :timeline-item="timelineItem"
+      />
+    </ul>
   </div>
 </template>

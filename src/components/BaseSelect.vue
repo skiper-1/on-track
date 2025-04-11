@@ -36,7 +36,7 @@ const select = (value) => emit('select', normalizeSelectValue(value));
       class="border-2 border-green-600/70 w-full rounded-xl h-10 px-2 hover:border-green-400 focus:outline-none focus:border-green-500"
       @change="select($event.target.value)"
     >
-      <option value="0" disabled :selected="isnotselected">
+      <option value="0" disabled :selected="props.selected">
         {{ placeholder }}
       </option>
 
