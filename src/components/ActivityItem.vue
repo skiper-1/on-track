@@ -6,7 +6,7 @@ import { isValidActivity } from '@/validators';
 import ActivitySecondsToComplete from './ActivitySecondsToComplete.vue';
 import { updateActivity, deleteActivity } from '@/activities';
 import { PERIOD_SELECT_OPTIONS } from '@/constants';
-import { resetTimelineItemActivities } from '@/timileneItems';
+import { resetTimelineItemActivities, timelineItems } from '@/timileneItems';
 import { ICON_TRASH } from '@/icons';
 
 const props = defineProps({
