@@ -12,7 +12,7 @@ console.log(percentage.value);
 
 <template>
   <a :href="`#${PAGE_PROGRESS}`" @click="navigate(PAGE_PROGRESS)">
-    <div v-if="percentage < 100" class="flex gap-2 items-center">
+    <div v-if="percentage < HUNDRED_PERCENT" class="flex gap-2 items-center">
       <div>
         Progress:
         <span>{{ percentage }}</span>

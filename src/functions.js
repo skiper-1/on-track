@@ -42,8 +42,6 @@ const formatSeconds = (seconds) => {
   return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6);
 };
 
-const currentHour = () => new Date().getHours();
-
 const getColorClass = (percent) => {
   if (percent < LOW_PERCENT) return 'bg-red-500';
   if (percent < MEDIUM_PERCENT) return 'bg-yellow-500';
@@ -56,6 +54,5 @@ export {
   normalizeSelectValue,
   generatePeriodSelectOptions,
   formatSeconds,
-  currentHour,
   getColorClass,
 };

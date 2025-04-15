@@ -1,6 +1,5 @@
 import { id } from '@/functions';
 import { computed, ref } from 'vue';
-import { calculateTrackedActivitySeconds } from '@/timileneItems';
 
 const generateActivities = () => {
   return ['Coding', 'Reading', 'Training'].map((name, hours) => ({

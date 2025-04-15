@@ -8,7 +8,7 @@ const useStopwatch = (initialSeconds) => {
   const start = () => {
     isRunning.value = setInterval(() => {
       seconds.value++;
-    }, 10);
+    }, 1000);
   };
 
   const stop = () => {
