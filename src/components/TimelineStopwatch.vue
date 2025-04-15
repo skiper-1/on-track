@@ -6,7 +6,7 @@ import BaseIcon from './BaseIcon.vue';
 import { ICON_PAUSE, ICON_PLAY, ICON_ARROW_PATH } from '@/icons';
 import { useStopwatch } from '@/composables/stopwatch';
 import { updateTimelineItem } from '@/timileneItems';
-import { watchEffect } from 'vue';
+import { watchEffect, watch, onMounted } from 'vue';
 import { now } from '@/time';
 
 const props = defineProps({
@@ -21,6 +21,12 @@ const { seconds, isRunning, start, stop, reset } = useStopwatch(
   props.timelineItem.activitySeconds
 );
 
+onMounted(() => {
+  if (props.timelineItem.isActive) {
+    start();
+  }
+});
+
 watchEffect(() => {
   if (props.timelineItem.hour !== now.value.getHours() && isRunning.value) {
     stop();
@@ -29,6 +35,10 @@ watchEffect(() => {
 
 watchEffect(() =>
   updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value })
+);
+
+watch(isRunning, () =>
+  updateTimelineItem({ isActive: Boolean(isRunning.value) })
 );
 </script>
 

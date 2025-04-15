@@ -4,11 +4,10 @@ const useStopwatch = (initialSeconds) => {
   const seconds = ref(initialSeconds);
 
   const isRunning = ref(false);
+  const temp = 120;
 
   const start = () => {
-    isRunning.value = setInterval(() => {
-      seconds.value++;
-    }, 1000);
+    isRunning.value = setInterval(() => (seconds.value += temp), 1000);
   };
 
   const stop = () => {

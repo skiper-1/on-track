@@ -5,11 +5,24 @@ import {
 } from '@/constants';
 import { ref, computed } from 'vue';
 
-const date = new Date();
+const today = () => {
+  const today = new Date();
 
-date.setHours(0, 0);
+  today.setHours(0, 0);
 
-const now = ref(date);
+  return today;
+};
+
+const tomorrow = () => {
+  const tomorrow = today();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0);
+  return tomorrow;
+};
+
+const isToday = (date) => today().toDateString() === date.toDateString();
+
+const now = ref(today());
 
 const midnight = computed(() => new Date(now.value).setHours(0, 0, 0, 0));
 
@@ -24,13 +37,21 @@ const secondsSinceMidnightInPercentage = computed(
 let timer = null;
 
 const startTimer = () => {
-  now.value = new Date();
+  now.value = today();
 
   timer = setInterval(() => {
-    now.value = new Date(now.value.getTime() * MILLISECONDS_IN_SECOND);
+    now.value = new Date(now.value.getTime() + MILLISECONDS_IN_SECOND);
   }, MILLISECONDS_IN_SECOND);
 };
 
 const stopTimer = () => clearInterval(timer);
 
-export { secondsSinceMidnightInPercentage, startTimer, stopTimer, now };
+export {
+  secondsSinceMidnightInPercentage,
+  startTimer,
+  stopTimer,
+  now,
+  today,
+  tomorrow,
+  isToday,
+};
