@@ -1,5 +1,6 @@
 import { generatePeriodSelectOptions } from './functions';
 import { ICON_CLOCK, ICON_LIST_BULLET, ICON_CHART_BAR } from './icons';
+const APP_NAME = 'ontrack';
 const PAGE_TIMELINE = 'timeline';
 const PAGE_ACTIVITIES = 'activities';
 const PAGE_PROGRESS = 'progress';
@@ -50,6 +51,7 @@ const MEDIUM_PERCENT = 66;
 const HUNDRED_PERCENT = 100;
 
 export {
+  APP_NAME,
   PAGE_TIMELINE,
   PAGE_ACTIVITIES,
   PAGE_PROGRESS,

@@ -2,6 +2,8 @@
 import { navigate, currentPage } from '@/router';
 import { isNavItemValid } from '@/validators';
 import BaseIcon from './BaseIcon.vue';
+import { PAGE_TIMELINE } from '@/constants';
+import { scrollToCurrentHour } from '@/timileneItems';
 
 const props = defineProps({
   navItem: {
@@ -10,13 +12,19 @@ const props = defineProps({
     validator: isNavItemValid,
   },
 });
+
+const handleClick = () => {
+  currentPage.value === PAGE_TIMELINE && props.navItem.page === PAGE_TIMELINE
+    ? scrollToCurrentHour(true)
+    : navigate(props.navItem.page);
+};
 </script>
 <template>
   <li class="flex-1">
     <a
       :href="`#${navItem.page}`"
       class="flex gap-2 flex-col justify-center items-center py-3"
-      @click="navigate(navItem.page)"
+      @click="handleClick"
     >
       <BaseIcon
         :name="navItem.icon"

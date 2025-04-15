@@ -18,9 +18,6 @@ const topOffset = computed(
 const getTimelimeHeight = () => {
   return indicatorRef.value?.parentNode.getBoundingClientRect().height;
 };
-
-onActivated(startTimer);
-onDeactivated(stopTimer);
 </script>
 
 <template>

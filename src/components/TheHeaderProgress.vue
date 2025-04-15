@@ -6,8 +6,6 @@ import BaseIcon from './BaseIcon.vue';
 import { useTotalProgress } from '@/composables/total-progress';
 
 const { colorClass, percentage } = useTotalProgress();
-
-console.log(percentage.value);
 </script>
 
 <template>
