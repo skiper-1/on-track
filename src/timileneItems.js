@@ -1,10 +1,6 @@
-import { computed, ref, watchEffect } from 'vue';
-import {
-  HOURS_IN_DAY,
-  MIDNIGHT_HOUR,
-  MILLISECONDS_IN_SECOND,
-} from './constants';
-import { now } from './time';
+import { computed, ref, watch } from 'vue';
+import { HOURS_IN_DAY, MIDNIGHT_HOUR } from './constants';
+import { now, today, toSeconds, endOfHour, isToday } from './time';
 
 const generateTimelineItems = () =>
   [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
@@ -14,52 +10,69 @@ const generateTimelineItems = () =>
     isActive: false,
   }));
 
-const timelineItems = ref(generateTimelineItems());
+const timelineItems = ref([]);
 
 const timelineItemsRefs = ref([]);
-
-const timelineItemTimer = ref(false);
 
 const activeTimelineItem = computed(() =>
   timelineItems.value.find(({ isActive }) => isActive)
 );
 
-const startTimelineItemTimer = (timelineItem) => {
-  updateTimelineItem(timelineItem, { isActive: true });
-
-  timelineItemTimer.value = setInterval(() => {
-    updateTimelineItem(timelineItem, {
-      activitySeconds: timelineItem.activitySeconds + 1,
-    });
-  }, MILLISECONDS_IN_SECOND);
-};
-
-const stopTimelineItemTimer = (timelineItem) => {
-  updateTimelineItem(timelineItem, { isActive: false });
-  clearInterval(timelineItemTimer.value);
-  timelineItemTimer.value = false;
-};
-
-const resetTimelineItemTimer = (timelineItem) => {
-  updateTimelineItem(timelineItem, { activitySeconds: 0 });
-
-  stopTimelineItemTimer(timelineItem);
-};
-
-watchEffect(() => {
+watch(now, (after, before) => {
   if (
     activeTimelineItem.value &&
-    activeTimelineItem.value.hour !== now.value.getHours()
+    activeTimelineItem.value.hour !== after.getHours()
   ) {
-    stopTimelineItemTimer(activeTimelineItem.value);
+    stopTimelineItemTimer();
+  }
+
+  if (
+    before.getHours() !== after.getHours() &&
+    after.getHours() === MIDNIGHT_HOUR
+  ) {
+    resetTimelineItems();
   }
 });
+
+const resetTimelineItems = () => {
+  timelineItems.value.forEach((timelineItem) =>
+    updateTimelineItem(timelineItem, {
+      activitySeconds: 0,
+      isActive: false,
+    })
+  );
+};
+
+const initializeTimelineItems = (state) => {
+  const lastActiveAt = new Date(state.lastActiveAt);
+
+  timelineItems.value = state.timelineItems ?? generateTimelineItems();
+
+  if (activeTimelineItem.value && isToday(lastActiveAt)) {
+    syncIdleSeconds(lastActiveAt);
+  } else if (state.timelineItems && !isToday(lastActiveAt)) {
+    resetTimelineItems(state, timelineItems);
+  }
+};
+
+const syncIdleSeconds = (lastActiveAt) => {
+  updateTimelineItem(activeTimelineItem.value, {
+    activitySeconds:
+      activeTimelineItem.value.activitySeconds +
+      calculateIdleSeconds(lastActiveAt),
+  });
+};
+
+const calculateIdleSeconds = (lastActiveAt) =>
+  lastActiveAt.getHours() === today().getHours()
+    ? toSeconds(today() - lastActiveAt)
+    : toSeconds(endOfHour(lastActiveAt) - lastActiveAt);
 
 const filterTimelineItemsByActivity = (timelineItems, { id }) =>
   timelineItems.filter(({ activityId }) => activityId === id);
 
 const scrollToCurrentHour = (isSmooth = true) => {
-  scrollToHour(now.value.getHours(), isSmooth);
+  scrollToHour(today().getHours(), isSmooth);
 };
 
 const scrollToHour = (hour, isSmooth = true) => {
@@ -82,15 +95,11 @@ const resetTimelineItemActivities = (timelineItems, activity) => {
       updateTimelineItem(timelineItem, {
         activityId: null,
         activitySeconds:
-          timelineItem.hour === now.value.getHours()
+          timelineItem.hour === today().getHours()
             ? timelineItem.activitySeconds
             : 0,
       })
   );
-};
-
-const initializeTimelineItems = () => {
-  timelineItems.value = generateTimelineItems();
 };
 
 setTimeout(initializeTimelineItems, 0);
@@ -103,14 +112,12 @@ const calculateTrackedActivitySeconds = (timelineItems, activity) =>
 export {
   timelineItems,
   timelineItemsRefs,
-  timelineItemTimer,
   resetTimelineItemActivities,
   calculateTrackedActivitySeconds,
   updateTimelineItem,
   scrollToHour,
   scrollToCurrentHour,
-  startTimelineItemTimer,
-  stopTimelineItemTimer,
-  resetTimelineItemTimer,
   activeTimelineItem,
+  initializeTimelineItems,
+  resetTimelineItems,
 };

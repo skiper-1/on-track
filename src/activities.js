@@ -2,6 +2,10 @@ import { computed, ref } from 'vue';
 
 const activities = ref([]);
 
+const initializeActivities = (state) => {
+  activities.value = state.activities || [];
+};
+
 const totalActivitySecondsToComplete = computed(() =>
   trackedActivities.value
     .map(({ secondsToComplete }) => secondsToComplete)
@@ -44,6 +48,7 @@ const generateActivitySelectOptions = (activities) =>
 
 export {
   activities,
+  initializeActivities,
   createActivity,
   updateActivity,
   deleteActivity,

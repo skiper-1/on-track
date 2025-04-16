@@ -2,17 +2,15 @@ import './assets/tailwind.css';
 
 import { createApp } from 'vue';
 import App from './App.vue';
-import { loadState, saveState } from './storage';
-import { activeTimelineItem, startTimelineItemTimer } from './timileneItems';
+import { syncState } from './storage';
+import { startCurrentDateTimer } from './time';
 
-loadState();
+syncState();
 
-if (activeTimelineItem.value) {
-  startTimelineItemTimer(activeTimelineItem.value);
-}
+startCurrentDateTimer();
 
 document.addEventListener('visibilitychange', () =>
-  document.visibilityState === 'hidden' ? saveState() : loadState()
+  syncState(document.visibilityState === 'visible')
 );
 
 createApp(App).mount('#app');

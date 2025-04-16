@@ -9,8 +9,9 @@ import {
   startTimelineItemTimer,
   stopTimelineItemTimer,
   timelineItemTimer,
-} from '@/timileneItems';
+} from '@/timelineitem-timer';
 import { now } from '@/time';
+import { activeTimelineItem } from '@/timileneItems';
 
 const props = defineProps({
   timelineItem: {
@@ -35,16 +36,16 @@ const props = defineProps({
     </div>
     <BaseButton
       type="pause"
-      @click="stopTimelineItemTimer(timelineItem)"
-      v-if="timelineItemTimer && timelineItem.hour === now.getHours()"
+      @click="stopTimelineItemTimer"
+      v-show="timelineItem === activeTimelineItem"
     >
       <BaseIcon :name="ICON_PAUSE" />
     </BaseButton>
     <BaseButton
       type="play"
       @click="startTimelineItemTimer(timelineItem)"
-      v-if="timelineItemTimer && timelineItem.hour === now.getHours()"
-      :disabled="timelineItem.hour !== now.getHours()"
+      v-show="!timelineItemTimer && timelineItem.hour === now.getHours()"
+      :disabled="!timelineItem.hour == now.getHours()"
     >
       <BaseIcon :name="ICON_PLAY" />
     </BaseButton>

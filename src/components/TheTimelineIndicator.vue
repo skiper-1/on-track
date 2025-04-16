@@ -5,14 +5,14 @@ import { secondsSinceMidnightInPercentage } from '@/time';
 
 const indicatorRef = ref();
 
+const getTimelimeHeight = () =>
+  indicatorRef.value?.parentNode.getBoundingClientRect().height;
+
 const topOffset = computed(
   () =>
-    (secondsSinceMidnightInPercentage.value + getTimelimeHeight()) /
+    (secondsSinceMidnightInPercentage.value - getTimelimeHeight()) /
     HUNDRED_PERCENT
 );
-
-const getTimelimeHeight = () =>
-  indicatorRef.value?.parentNode.getBoundingClientRect().height();
 </script>
 
 <template>
