@@ -1,15 +1,6 @@
-import { id } from '@/functions';
 import { computed, ref } from 'vue';
 
-const generateActivities = () => {
-  return ['Coding', 'Reading', 'Training'].map((name, hours) => ({
-    id: id(),
-    name: name,
-    secondsToComplete: 15 * 60,
-  }));
-};
-
-const activities = ref(generateActivities());
+const activities = ref([]);
 
 const totalActivitySecondsToComplete = computed(() =>
   trackedActivities.value

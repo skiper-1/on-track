@@ -1,23 +1,18 @@
 <script setup>
 import { HUNDRED_PERCENT } from '@/constants';
-import { ref, computed, onActivated, onDeactivated } from 'vue';
-import {
-  startTimer,
-  stopTimer,
-  secondsSinceMidnightInPercentage,
-} from '@/time';
+import { ref, computed } from 'vue';
+import { secondsSinceMidnightInPercentage } from '@/time';
 
 const indicatorRef = ref();
 
 const topOffset = computed(
   () =>
-    (secondsSinceMidnightInPercentage.value * getTimelimeHeight()) /
+    (secondsSinceMidnightInPercentage.value + getTimelimeHeight()) /
     HUNDRED_PERCENT
 );
 
-const getTimelimeHeight = () => {
-  return indicatorRef.value?.parentNode.getBoundingClientRect().height;
-};
+const getTimelimeHeight = () =>
+  indicatorRef.value?.parentNode.getBoundingClientRect().height();
 </script>
 
 <template>

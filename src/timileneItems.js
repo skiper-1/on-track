@@ -1,11 +1,10 @@
-import { ref } from 'vue';
+import { computed, ref, watchEffect } from 'vue';
 import {
   HOURS_IN_DAY,
   MIDNIGHT_HOUR,
   MILLISECONDS_IN_SECOND,
 } from './constants';
 import { now } from './time';
-import { activities } from './activities';
 
 const generateTimelineItems = () =>
   [...Array(HOURS_IN_DAY).keys()].map((hour) => ({
@@ -19,20 +18,42 @@ const timelineItems = ref(generateTimelineItems());
 
 const timelineItemsRefs = ref([]);
 
-const timelineItemTimer = null;
+const timelineItemTimer = ref(false);
 
-const startTimelineItemTimer = (activeTimelineItem) => {
-  timelineItemTimer = setInterval(() => {
-    updateTimelineItem(activeTimelineItem, {
-      activitySeconds: activeTimelineItem.activitySeconds + 1,
+const activeTimelineItem = computed(() =>
+  timelineItems.value.find(({ isActive }) => isActive)
+);
+
+const startTimelineItemTimer = (timelineItem) => {
+  updateTimelineItem(timelineItem, { isActive: true });
+
+  timelineItemTimer.value = setInterval(() => {
+    updateTimelineItem(timelineItem, {
+      activitySeconds: timelineItem.activitySeconds + 1,
     });
   }, MILLISECONDS_IN_SECOND);
 };
 
-const findActiveTimelineItem = () =>
-  timelineItems.value.find(({ isActive }) => isActive);
+const stopTimelineItemTimer = (timelineItem) => {
+  updateTimelineItem(timelineItem, { isActive: false });
+  clearInterval(timelineItemTimer.value);
+  timelineItemTimer.value = false;
+};
 
-const stopTimelineItemTimer = () => clearInterval(timelineItemTimer);
+const resetTimelineItemTimer = (timelineItem) => {
+  updateTimelineItem(timelineItem, { activitySeconds: 0 });
+
+  stopTimelineItemTimer(timelineItem);
+};
+
+watchEffect(() => {
+  if (
+    activeTimelineItem.value &&
+    activeTimelineItem.value.hour !== now.value.getHours()
+  ) {
+    stopTimelineItemTimer(activeTimelineItem.value);
+  }
+});
 
 const filterTimelineItemsByActivity = (timelineItems, { id }) =>
   timelineItems.filter(({ activityId }) => activityId === id);
@@ -82,6 +103,7 @@ const calculateTrackedActivitySeconds = (timelineItems, activity) =>
 export {
   timelineItems,
   timelineItemsRefs,
+  timelineItemTimer,
   resetTimelineItemActivities,
   calculateTrackedActivitySeconds,
   updateTimelineItem,
@@ -89,5 +111,6 @@ export {
   scrollToCurrentHour,
   startTimelineItemTimer,
   stopTimelineItemTimer,
-  findActiveTimelineItem,
+  resetTimelineItemTimer,
+  activeTimelineItem,
 };

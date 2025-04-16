@@ -3,17 +3,12 @@ import './assets/tailwind.css';
 import { createApp } from 'vue';
 import App from './App.vue';
 import { loadState, saveState } from './storage';
-import {
-  findActiveTimelineItem,
-  startTimelineItemTimer,
-} from './timileneItems';
+import { activeTimelineItem, startTimelineItemTimer } from './timileneItems';
 
 loadState();
 
-const activeTimelineItem = findActiveTimelineItem();
-
-if (activeTimelineItem) {
-  startTimelineItemTimer(activeTimelineItem);
+if (activeTimelineItem.value) {
+  startTimelineItemTimer(activeTimelineItem.value);
 }
 
 document.addEventListener('visibilitychange', () =>

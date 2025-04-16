@@ -1,8 +1,7 @@
 import { activities } from './activities';
-import { APP_NAME, MILLISECONDS_IN_SECOND, SECONDS_IN_HOUR } from './constants';
-import { today } from './time';
+import { APP_NAME } from './constants';
+import { today, toSeconds, isToday, endOfHour } from './time';
 import { timelineItems } from './timileneItems';
-import { isToday } from './time';
 
 const saveState = () => {
   localStorage.setItem(
@@ -39,26 +38,9 @@ const syncIdleSeconds = (timelineItems, lastActiveAt) => {
   return timelineItems;
 };
 
-const calculateIdleSeconds = (lastActiveAt) => {
-  let idleMilliseconds = today() - lastActiveAt;
-
-  if (lastActiveAt.getHours() !== today().getHours()) {
-    idleMilliseconds = getEndOfIdleHour(lastActiveAt) - lastActiveAt;
-  }
-
-  return idleMilliseconds / MILLISECONDS_IN_SECOND;
-};
-
-const getEndOfIdleHour = (lastActiveAt) => {
-  const endOfIdleHour = new Date(lastActiveAt);
-
-  endOfIdleHour.setTime(
-    endOfIdleHour.getTime() + SECONDS_IN_HOUR * MILLISECONDS_IN_SECOND
-  );
-
-  endOfIdleHour.setMinutes(0, 0, 0);
-
-  return endOfIdleHour;
-};
+const calculateIdleSeconds = (lastActiveAt) =>
+  lastActiveAt.getHours() === today().getHours()
+    ? toSeconds(today() - lastActiveAt)
+    : toSeconds(endOfHour(lastActiveAt) - lastActiveAt);
 
 export { loadState, saveState };

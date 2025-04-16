@@ -4,9 +4,12 @@ import { isTimelineItemValid } from '@/validators';
 import { formatSeconds } from '@/functions';
 import BaseIcon from './BaseIcon.vue';
 import { ICON_PAUSE, ICON_PLAY, ICON_ARROW_PATH } from '@/icons';
-import { useStopwatch } from '@/composables/stopwatch';
-import { updateTimelineItem } from '@/timileneItems';
-import { watchEffect, watch, onMounted } from 'vue';
+import {
+  resetTimelineItemTimer,
+  startTimelineItemTimer,
+  stopTimelineItemTimer,
+  timelineItemTimer,
+} from '@/timileneItems';
 import { now } from '@/time';
 
 const props = defineProps({
@@ -16,37 +19,13 @@ const props = defineProps({
     validator: isTimelineItemValid,
   },
 });
-
-const { seconds, isRunning, start, stop, reset } = useStopwatch(
-  props.timelineItem.activitySeconds
-);
-
-onMounted(() => {
-  if (props.timelineItem.isActive) {
-    start();
-  }
-});
-
-watchEffect(() => {
-  if (props.timelineItem.hour !== now.value.getHours() && isRunning.value) {
-    stop();
-  }
-});
-
-watchEffect(() =>
-  updateTimelineItem(props.timelineItem, { activitySeconds: seconds.value })
-);
-
-watch(isRunning, () =>
-  updateTimelineItem({ isActive: Boolean(isRunning.value) })
-);
 </script>
 
 <template>
   <div class="flex w-full pt-2">
     <BaseButton
       type="reset"
-      @click="reset"
+      @click="resetTimelineItemTimer(timelineItem)"
       :disabled="!timelineItem.activitySeconds"
     >
       <BaseIcon :name="ICON_ARROW_PATH" />
@@ -54,13 +33,17 @@ watch(isRunning, () =>
     <div class="flex flex-grow items-center justify-center text-xl">
       {{ formatSeconds(timelineItem.activitySeconds) }}
     </div>
-    <BaseButton type="pause" @click="stop" v-show="isRunning">
+    <BaseButton
+      type="pause"
+      @click="stopTimelineItemTimer(timelineItem)"
+      v-if="timelineItemTimer && timelineItem.hour === now.getHours()"
+    >
       <BaseIcon :name="ICON_PAUSE" />
     </BaseButton>
     <BaseButton
       type="play"
-      @click="start"
-      v-show="!isRunning"
+      @click="startTimelineItemTimer(timelineItem)"
+      v-if="timelineItemTimer && timelineItem.hour === now.getHours()"
       :disabled="timelineItem.hour !== now.getHours()"
     >
       <BaseIcon :name="ICON_PLAY" />
