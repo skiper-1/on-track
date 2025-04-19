@@ -15,10 +15,10 @@ const props = defineProps({
 });
 
 const classes = computed(() => [
-  'flex flex-col items-center p-2 text-xs capitalize',
+  'flex flex-col items-center gap-2 p-2 text-xs capitalize',
   props.navItem.page === currentPage.value
-    ? 'bg-gray-200'
-    : 'hover:bg-gray-100',
+    ? 'bg-gray-800'
+    : 'hover:bg-gray-700',
 ]);
 
 const handleClick = () => {

@@ -16,10 +16,8 @@ const props = defineProps({
 });
 
 const classes = computed(() => [
-  'flex items-center rounded px-2 font-mono text-xl',
-  remainingSeconds.value < 0
-    ? 'bg-red-100 text-red-600'
-    : 'bg-green-100 text-green-600',
+  'flex items-center rounded-xl px-2 text-xl h-10 bg-gray-700',
+  remainingSeconds.value < 0 ? 'text-orange-300' : 'text-green-500',
 ]);
 
 const remainingSeconds = computed(

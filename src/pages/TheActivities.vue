@@ -1,7 +1,7 @@
 <script setup>
 import { activities } from '@/activities';
 import ActivityItem from '@/components/ActivityItem.vue';
-import TheFormActivity from '@/components/TheActivityForm.vue';
+import TheActivityForm from '@/components/TheActivityForm.vue';
 import TheNoActivity from '@/components/TheNoActivity.vue';
 </script>
 
@@ -15,6 +15,6 @@ import TheNoActivity from '@/components/TheNoActivity.vue';
       />
     </ul>
     <TheNoActivity v-else />
-    <TheFormActivity />
+    <TheActivityForm />
   </div>
 </template>

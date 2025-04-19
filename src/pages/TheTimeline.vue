@@ -12,7 +12,7 @@ onActivated(scrollToCurrentHour);
 </script>
 
 <template>
-  <div class="relative mt-7">
+  <div class="relative mt-7 scrollbar-none">
     <ul>
       <TimelineItem
         v-for="timelineItem in timelineItems"

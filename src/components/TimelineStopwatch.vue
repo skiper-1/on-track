@@ -22,7 +22,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <div class="flex w-full pt-2">
+  <div class="flex w-full pt-3">
     <BaseButton
       type="reset"
       @click="resetTimelineItemTimer(timelineItem)"
@@ -30,7 +30,9 @@ const props = defineProps({
     >
       <BaseIcon :name="ICON_ARROW_PATH" />
     </BaseButton>
-    <div class="flex flex-grow items-center justify-center text-xl">
+    <div
+      class="flex flex-grow items-center justify-center text-xl text-gray-300"
+    >
       {{ formatSeconds(timelineItem.activitySeconds) }}
     </div>
     <BaseButton

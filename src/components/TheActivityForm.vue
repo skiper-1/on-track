@@ -25,7 +25,7 @@ const submit = async () => {
 
 <template>
   <form
-    class="sticky bottom-[108px] bg-gray-600 h-20 flex items-center gap-5 px-7"
+    class="sticky bottom-[100px] bg-gray-600 h-20 flex items-center gap-5 px-7"
     @submit.prevent="submit"
   >
     <input

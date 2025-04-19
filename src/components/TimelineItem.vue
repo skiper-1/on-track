@@ -16,9 +16,7 @@ const props = defineProps({
 </script>
 
 <template>
-  <li
-    class="relative border-2 border-violet-700 my-5 mx-2 p-5 rounded-2xl bg-gradient-to-bl from-gray-700/50 to-blue-900/50"
-  >
+  <li class="relative bg-violet-500/10 my-5 mx-2 p-5 rounded-2xl">
     <BaseHour :hour="timelineItem.hour" />
     <BaseSelect
       :options="activitySelectOptions"

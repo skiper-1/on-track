@@ -26,7 +26,7 @@ const normalizeSelectValue = (value) =>
 
 const getProgressColorClass = (percent) => {
   if (percent < LOW_PERCENT) return 'bg-red-500';
-  if (percent < MEDIUM_PERCENT) return 'bg-yellow-500';
+  if (percent < MEDIUM_PERCENT) return 'bg-yellow-300';
   if (percent < HUNDRED_PERCENT) return 'bg-green-500';
 
   return 'bg-blue-500';

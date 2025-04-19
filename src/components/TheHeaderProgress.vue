@@ -15,9 +15,9 @@ const { colorClass, percentage } = useTotalProgress();
         Progress:
         <span>{{ percentage }}</span>
       </div>
-      <div :class="`h-5 w-5 rounded-full' ${colorClass}`"></div>
+      <div :class="`h-5 w-5 rounded-full ${colorClass}`"></div>
     </div>
-    <div v-else class="flex gap-2">
+    <div v-else class="flex gap-2 items-center">
       <div>Day complete!</div>
 
       <BaseIcon :name="ICON_CHECK_CIRCLE" class="h-8 text-lime-400" />

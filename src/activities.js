@@ -39,9 +39,11 @@ const totalActivitySecondsToComplete = computed(() =>
     .reduce((total, seconds) => total + seconds, 0)
 );
 
+const capitalize = (text) => text.slice(0, 1).toUpperCase() + text.slice(1);
+
 const generateActivitySelectOptions = (activities) =>
   activities.map((activity) => ({
-    label: activity.name,
+    label: capitalize(activity.name),
     value: activity.id,
   }));
 

@@ -19,7 +19,7 @@ const { colorClass, percentage, trackedActivitySeconds } = useProgress(
 
 <template>
   <li class="m-4 rounded-xl bg-violet-500/10">
-    <div class="truncate text-xl px-10 my-3">
+    <div class="truncate text-xl px-10 pt-5 pb-2 capitalize">
       {{ activity.name }}
     </div>
     <div class="mx-5 flex h-5 overflow-hidden rounded-xl">

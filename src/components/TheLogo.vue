@@ -14,15 +14,15 @@ const handleClick = () => {
 <template>
   <a
     :href="`#${PAGE_TIMELINE}`"
-    class="flex items-center gap-1"
+    class="flex items-center gap-2"
     @click="handleClick"
   >
     <BaseIcon
       name="Bolt"
-      class="text-green-500 h-15 bg-gradient-to-tr from-blue-600 to-violet-900 rounded-2xl border-2 border-green-500 p-2"
+      class="text-green-500 h-15 bg-gradient-to-tr from-blue-600 to-violet-900 rounded-2xl p-3"
     />
     <span
-      class="bg-gradient-to-r bg-clip-text text-transparent from-green-400 to-blue-400 font-bold text-2xl"
+      class="bg-gradient-to-r bg-clip-text text-transparent from-green-400 to-blue-400 font-bold text-2xl font-light"
     >
       On Track
     </span>

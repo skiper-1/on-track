@@ -24,14 +24,16 @@ const deleteAndResetActivity = (activity) => {
 </script>
 
 <template>
-  <li class="flex flex-col gap-1 mt-2">
-    <div class="flex items-center m-5 gap-5">
+  <li class="bg-violet-500/10 rounded-2xl my-5 mx-2 px-2 py-5">
+    <div class="flex items-center gap-5 px-5">
       <BaseButton type="danger" @click="deleteAndResetActivity(activity)">
         <BaseIcon :name="ICON_TRASH" class="size-8" />
       </BaseButton>
-      <span class="w-full text-2xl truncate">{{ activity.name }}</span>
+      <span class="w-full text-2xl truncate capitalize">{{
+        activity.name
+      }}</span>
     </div>
-    <div class="flex items-center gap-5 px-5">
+    <div class="flex items-center gap-5 px-5 mt-2">
       <BaseSelect
         :selected="activity.secondsToComplete || null"
         :options="PERIOD_SELECT_OPTIONS"
