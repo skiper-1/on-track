@@ -21,5 +21,6 @@ onActivated(scrollToCurrentHour);
         :timeline-item="timelineItem"
       />
     </ul>
+
   </div>
 </template>
