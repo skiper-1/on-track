@@ -1,6 +1,6 @@
-import { activities, initializeActivities } from './activities';
-import { APP_NAME } from './constants';
 import { today } from './time';
+import { APP_NAME } from './constants';
+import { activities, initializeActivities } from './activities';
 import {
   startTimelineItemTimer,
   stopTimelineItemTimer,
@@ -19,6 +19,16 @@ const syncState = (shouldLoad = true) => {
   }
 };
 
+const loadState = () => {
+  const state = loadFromLocalStorage();
+
+  initializeActivities(state);
+  initializeTimelineItems(state);
+};
+
+const loadFromLocalStorage = () =>
+  JSON.parse(localStorage.getItem(APP_NAME) ?? '{}');
+
 const saveState = () => {
   localStorage.setItem(
     APP_NAME,
@@ -30,15 +40,4 @@ const saveState = () => {
   );
 };
 
-const loadState = () => {
-  const state = loadFromLocalStorage();
-
-  initializeActivities(state);
-
-  initializeTimelineItems(state);
-};
-
-const loadFromLocalStorage = () =>
-  JSON.parse(localStorage.getItem(APP_NAME) ?? '{}');
-
-export { loadState, saveState, syncState };
+export { syncState };

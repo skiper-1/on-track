@@ -1,17 +1,16 @@
 <script setup>
-import BaseButton from './BaseButton.vue';
-import { isTimelineItemValid } from '@/validators';
-import { formatSeconds } from '@/functions';
-import BaseIcon from './BaseIcon.vue';
 import { ICON_PAUSE, ICON_PLAY, ICON_ARROW_PATH } from '@/icons';
+import { formatSeconds } from '@/functions';
+import { isTimelineItemValid } from '@/validators';
+import { activeTimelineItem } from '@/timileneItems';
 import {
   resetTimelineItemTimer,
   startTimelineItemTimer,
   stopTimelineItemTimer,
-  timelineItemTimer,
 } from '@/timelineitem-timer';
 import { now } from '@/time';
-import { activeTimelineItem } from '@/timileneItems';
+import BaseIcon from './BaseIcon.vue';
+import BaseButton from './BaseButton.vue';
 
 const props = defineProps({
   timelineItem: {
@@ -35,17 +34,17 @@ const props = defineProps({
       {{ formatSeconds(timelineItem.activitySeconds) }}
     </div>
     <BaseButton
+      v-if="timelineItem === activeTimelineItem"
       type="pause"
       @click="stopTimelineItemTimer"
-      v-show="timelineItem === activeTimelineItem"
     >
       <BaseIcon :name="ICON_PAUSE" />
     </BaseButton>
     <BaseButton
+      v-else
       type="play"
       @click="startTimelineItemTimer(timelineItem)"
-      v-show="!timelineItemTimer && timelineItem.hour === now.getHours()"
-      :disabled="!timelineItem.hour == now.getHours()"
+      :disabled="timelineItem.hour !== now.getHours()"
     >
       <BaseIcon :name="ICON_PLAY" />
     </BaseButton>

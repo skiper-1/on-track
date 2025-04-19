@@ -1,6 +1,8 @@
 import { generatePeriodSelectOptions } from './functions';
 import { ICON_CLOCK, ICON_LIST_BULLET, ICON_CHART_BAR } from './icons';
+
 const APP_NAME = 'ontrack';
+
 const PAGE_TIMELINE = 'timeline';
 const PAGE_ACTIVITIES = 'activities';
 const PAGE_PROGRESS = 'progress';
@@ -20,14 +22,6 @@ const NAV_ITEMS = [
   },
 ];
 
-const SECONDS_IN_MINUTE = 60;
-const MINUTES_IN_HOUR = 60;
-const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR;
-const MILLISECONDS_IN_SECOND = 1000;
-const MIDNIGHT_HOUR = 0;
-const HOURS_IN_DAY = 24;
-const SECONDS_IN_DAY = HOURS_IN_DAY * SECONDS_IN_HOUR;
-
 const BUTTON_TYPE_DANGER = 'danger';
 const BUTTON_TYPE_NEUTRAL = 'neutral';
 const BUTTON_TYPE_ACCEPT = 'accept';
@@ -36,13 +30,21 @@ const BUTTON_TYPE_PAUSE = 'pause';
 const BUTTON_TYPE_RESET = 'reset';
 
 const BUTTONS_TYPES = [
+  BUTTON_TYPE_ACCEPT,
   BUTTON_TYPE_DANGER,
   BUTTON_TYPE_NEUTRAL,
-  BUTTON_TYPE_ACCEPT,
   BUTTON_TYPE_PAUSE,
   BUTTON_TYPE_PLAY,
   BUTTON_TYPE_RESET,
 ];
+
+const MILLISECONDS_IN_SECOND = 1000;
+const SECONDS_IN_MINUTE = 60;
+const MINUTES_IN_HOUR = 60;
+const HOURS_IN_DAY = 24;
+const MIDNIGHT_HOUR = 0;
+const SECONDS_IN_HOUR = SECONDS_IN_MINUTE * MINUTES_IN_HOUR;
+const SECONDS_IN_DAY = HOURS_IN_DAY * SECONDS_IN_HOUR;
 
 const PERIOD_SELECT_OPTIONS = generatePeriodSelectOptions();
 

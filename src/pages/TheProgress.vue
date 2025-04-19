@@ -1,11 +1,11 @@
 <script setup>
+import { trackedActivities } from '@/activities';
 import ProgressItem from '@/components/ProgressItem.vue';
-import { activities, trackedActivities } from '@/activities';
 import TheNoActivity from '@/components/TheNoActivity.vue';
 </script>
 
 <template>
-  <ul class="flex flex-col" v-if="activities.length">
+  <ul v-if="trackedActivities.length">
     <ProgressItem
       v-for="activity in trackedActivities"
       :key="activity.id"

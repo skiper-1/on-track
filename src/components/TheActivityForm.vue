@@ -1,10 +1,10 @@
 <script setup>
-import BaseButton from '@/components/BaseButton.vue';
-import { nextTick, ref } from 'vue';
 import { id } from '@/functions';
+import { ICON_PLUS } from '@/icons';
+import { nextTick, ref } from 'vue';
 import { createActivity } from '@/activities';
 import BaseIcon from './BaseIcon.vue';
-import { ICON_PLUS } from '@/icons';
+import BaseButton from '@/components/BaseButton.vue';
 
 const name = ref('');
 
@@ -26,7 +26,7 @@ const submit = async () => {
 <template>
   <form
     class="sticky bottom-[108px] bg-gray-600 h-20 flex items-center gap-5 px-7"
-    @submit.prevent="submit()"
+    @submit.prevent="submit"
   >
     <input
       type="text"
@@ -39,5 +39,3 @@ const submit = async () => {
     </BaseButton>
   </form>
 </template>
-
-<style scoped></style>

@@ -9,41 +9,15 @@ import { ICONS } from './icons';
 const isPageValid = (page) =>
   NAV_ITEMS.some((navItem) => navItem.page === page);
 
+const isIconValid = (icon) => Object.keys(ICONS).includes(icon);
+
 const isNavItemValid = (navItem) => NAV_ITEMS.includes(navItem);
+
+const isButtonTypeValid = (button) => BUTTONS_TYPES.includes(button);
 
 const isTimelineItemValid = ({ hour }) => isHourValid(hour);
 
-const validateSelectOptions = (options) => {
-  return options.every(isSelectOptionValid);
-};
-
-const isSelectOptionValid = ({ value, label }) =>
-  isNumber(value) || (isNotEmptyString(value) && isNotEmptyString(label));
-
-const validateTimelineItems = (timelineItems) => {
-  return timelineItems.every(isTimelineItemValid);
-};
-
-const isBetween = (hour, start, end) => hour >= start && hour <= end;
-
-const isHourValid = (hour) =>
-  isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY - 1);
-
-const isUndefined = (value) => value === undefined;
-
-const isNull = (value) => value === null;
-
-const isNumber = (value) => typeof value === 'number';
-
-const isString = (value) => typeof value === 'string';
-
-const isNumberOrNull = (value) => isNumber(value) || isNull(value);
-
-const isUndefinedOrNull = (value) => isUndefined(value) || isNull(value);
-
-const isNotEmptyString = (value) => isString(value) && value.length !== 0;
-
-const isValidActivity = ({ id, name, secondsToComplete }) => {
+const isActivityValid = ({ id, name, secondsToComplete }) => {
   if (isNull(id)) {
     return true;
   }
@@ -55,16 +29,32 @@ const isValidActivity = ({ id, name, secondsToComplete }) => {
   ].every(Boolean);
 };
 
-const validActivities = (activities) => activities.every(isValidActivity);
+const isHourValid = (hour) =>
+  isNumber(hour) && isBetween(hour, MIDNIGHT_HOUR, HOURS_IN_DAY - 1);
 
-const isButtonValid = (button) => BUTTONS_TYPES.includes(button);
+const validateSelectOptions = (options) => options.every(isSelectOptionValid);
+
+const isUndefinedOrNull = (value) => isUndefined(value) || isNull(value);
 
 const isSelectValueValid = (value) =>
   isNotEmptyString(value) || isNumberOrNull(value);
 
-const isIconValid = (icon) => {
-  return Object.keys(ICONS).includes(icon);
-};
+const isNull = (value) => value === null;
+
+const isNumberOrNull = (value) => isNumber(value) || isNull(value);
+
+const isUndefined = (value) => value === undefined;
+
+const isNumber = (value) => typeof value === 'number';
+
+const isSelectOptionValid = ({ value, label }) =>
+  isNumber(value) || (isNotEmptyString(value) && isNotEmptyString(label));
+
+const isBetween = (hour, start, end) => hour >= start && hour <= end;
+
+const isNotEmptyString = (value) => isString(value) && value.length > 0;
+
+const isString = (value) => typeof value === 'string';
 
 export {
   isNull,
@@ -76,10 +66,8 @@ export {
   isHourValid,
   isTimelineItemValid,
   validateSelectOptions,
-  validateTimelineItems,
-  validActivities,
-  isValidActivity,
-  isButtonValid,
+  isActivityValid,
+  isButtonTypeValid,
   isSelectValueValid,
   isNavItemValid,
   isIconValid,

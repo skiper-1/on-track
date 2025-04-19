@@ -13,12 +13,14 @@ const startTimelineItemTimer = (timelineItem) => {
     updateTimelineItem(timelineItem, {
       activitySeconds: timelineItem.activitySeconds + 1,
     });
-  }, MILLISECONDS_IN_SECOND);
+  }, 10);
 };
 
 const stopTimelineItemTimer = () => {
   updateTimelineItem(activeTimelineItem.value, { isActive: false });
+
   clearInterval(timelineItemTimer.value);
+
   timelineItemTimer.value = false;
 };
 

@@ -1,10 +1,10 @@
 <script setup>
 import { isTimelineItemValid } from '@/validators';
-import BaseSelect from './BaseSelect.vue';
-import BaseHour from './BaseHour.vue';
-import TimelineStopwatch from './TimelineStopwatch.vue';
 import { activitySelectOptions } from '@/activities';
 import { updateTimelineItem } from '@/timileneItems';
+import BaseHour from './BaseHour.vue';
+import BaseSelect from './BaseSelect.vue';
+import TimelineStopwatch from './TimelineStopwatch.vue';
 
 const props = defineProps({
   timelineItem: {

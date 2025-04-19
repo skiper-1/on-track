@@ -7,17 +7,6 @@ import {
   BUTTON_TYPE_PAUSE,
   BUTTON_TYPE_RESET,
 } from '@/constants';
-import { isButtonValid } from '@/validators';
-</script>
-
-<script setup>
-const props = defineProps({
-  type: {
-    default: BUTTON_TYPE_NEUTRAL,
-    type: String,
-    validator: isButtonValid,
-  },
-});
 
 const typeClasses = {
   [BUTTON_TYPE_DANGER]:
@@ -33,6 +22,18 @@ const typeClasses = {
   [BUTTON_TYPE_RESET]:
     'border-yellow-500 text-yellow-500 hover:text-yellow-300 focus:border-yellow-400 hover:border-yellow-300',
 };
+</script>
+
+<script setup>
+import { isButtonTypeValid } from '@/validators';
+
+const props = defineProps({
+  type: {
+    default: BUTTON_TYPE_NEUTRAL,
+    type: String,
+    validator: isButtonTypeValid,
+  },
+});
 
 const classes = [
   `border-2

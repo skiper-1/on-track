@@ -1,12 +1,12 @@
 <script setup>
-import ActivityItem from '@/components/ActivityItem.vue';
-import TheFormActivity from '@/components/TheFormActivity.vue';
 import { activities } from '@/activities';
+import ActivityItem from '@/components/ActivityItem.vue';
+import TheFormActivity from '@/components/TheActivityForm.vue';
 import TheNoActivity from '@/components/TheNoActivity.vue';
 </script>
 
 <template>
-  <div class="flex flex-col">
+  <div class="flex flex-col grow">
     <ul class="grow" v-if="activities.length">
       <ActivityItem
         v-for="activity in activities"
@@ -14,7 +14,7 @@ import TheNoActivity from '@/components/TheNoActivity.vue';
         :activity="activity"
       />
     </ul>
-    <TheNoActivity class="grow" v-else />
+    <TheNoActivity v-else />
     <TheFormActivity />
   </div>
 </template>

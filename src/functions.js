@@ -8,29 +8,8 @@ import {
 } from '@/constants';
 import { isNull } from './validators';
 
-const id = () => Math.random().toString(36).slice(2);
-
-const normalizeSelectValue = (value) =>
-  isNull(value) || isNaN(value) ? value : +value;
-
-const generatePeriodSelectOptionsLabel = (periodInMinutes) => {
-  const hours = Math.floor(periodInMinutes / MINUTES_IN_HOUR)
-    .toString()
-    .padStart(2, 0);
-
-  const minutes = (periodInMinutes % MINUTES_IN_HOUR).toString().padStart(2, 0);
-
-  return `${hours}:${minutes}`;
-};
-
-const generatePeriodSelectOptions = () => {
-  const periodsInMinutes = [15, 30, 45, 60, 90, 120, 150, 180];
-
-  return periodsInMinutes.map((periodInMinutes) => ({
-    value: periodInMinutes * SECONDS_IN_MINUTE,
-    label: generatePeriodSelectOptionsLabel(periodInMinutes),
-  }));
-};
+const formatSecondsWithSign = (seconds) =>
+  `${seconds >= 0 ? '+' : '-'}${formatSeconds(seconds)}`;
 
 const formatSeconds = (seconds) => {
   const date = new Date();
@@ -42,17 +21,47 @@ const formatSeconds = (seconds) => {
   return utc.substring(utc.indexOf(':') - 2, utc.indexOf(':') + 6);
 };
 
-const getColorClass = (percent) => {
+const normalizeSelectValue = (value) =>
+  isNull(value) || isNaN(value) ? value : +value;
+
+const getProgressColorClass = (percent) => {
   if (percent < LOW_PERCENT) return 'bg-red-500';
   if (percent < MEDIUM_PERCENT) return 'bg-yellow-500';
   if (percent < HUNDRED_PERCENT) return 'bg-green-500';
 
   return 'bg-blue-500';
 };
+
+const id = () =>
+  Date.now().toString(36) + Math.random().toString(36).substring(2);
+
+const generatePeriodSelectOptions = () => {
+  const periodsInMinutes = [
+    15, 30, 45, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330, 360, 390, 420,
+    450, 480,
+  ];
+
+  return periodsInMinutes.map((periodInMinutes) => ({
+    value: periodInMinutes * SECONDS_IN_MINUTE,
+    label: generatePeriodSelectOptionsLabel(periodInMinutes),
+  }));
+};
+
+const generatePeriodSelectOptionsLabel = (periodInMinutes) => {
+  const hours = Math.floor(periodInMinutes / MINUTES_IN_HOUR)
+    .toString()
+    .padStart(2, 0);
+
+  const minutes = (periodInMinutes % MINUTES_IN_HOUR).toString().padStart(2, 0);
+
+  return `${hours}:${minutes}`;
+};
+
 export {
   id,
   normalizeSelectValue,
   generatePeriodSelectOptions,
   formatSeconds,
-  getColorClass,
+  formatSecondsWithSign,
+  getProgressColorClass,
 };
