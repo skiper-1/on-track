@@ -25,12 +25,12 @@ const submit = async () => {
 
 <template>
   <form
-    class="sticky bottom-[100px] bg-gray-600 h-20 flex items-center gap-5 px-7"
+    class="sticky bottom-0 bg-gray-600 h-16 flex items-center gap-5 py-2 px-8"
     @submit.prevent="submit"
   >
     <input
       type="text"
-      class="w-full border-2 p-1 rounded-xl border-orange-400"
+      class="w-full border-2 px-4 py-1 rounded-xl border-orange-400 outline-0"
       placeholder="Add activity..."
       v-model="name"
     />

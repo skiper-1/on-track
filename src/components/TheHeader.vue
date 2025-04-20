@@ -5,7 +5,7 @@ import TheHeaderProgress from '@/components/TheHeaderProgress.vue';
 
 <template>
   <header
-    class="sticky top-0 bg-gray-700 text-white flex items-center justify-between p-5 z-20"
+    class="sticky top-0 bg-gray-700 text-white flex items-center justify-between p-2 z-20"
   >
     <TheLogo />
     <TheHeaderProgress />

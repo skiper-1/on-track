@@ -6,13 +6,12 @@ import {
   scrollToCurrentHour,
 } from '@/timileneItems.js';
 import TimelineItem from '@/components/TimelineItem.vue';
-import TheTimelineIndicator from '@/components/TheTimelineIndicator.vue';
 
 onActivated(scrollToCurrentHour);
 </script>
 
 <template>
-  <div class="relative mt-7 scrollbar-none">
+  <div class="relative mt-7 scrollbar-hidden">
     <ul>
       <TimelineItem
         v-for="timelineItem in timelineItems"
@@ -21,6 +20,5 @@ onActivated(scrollToCurrentHour);
         :timeline-item="timelineItem"
       />
     </ul>
-
   </div>
 </template>

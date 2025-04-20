@@ -6,15 +6,15 @@ import TheNoActivity from '@/components/TheNoActivity.vue';
 </script>
 
 <template>
-  <div class="flex flex-col grow">
-    <ul class="grow" v-if="activities.length">
+  <div class="flex flex-col relative">
+    <ul class="flex-1" v-show="activities.length">
       <ActivityItem
         v-for="activity in activities"
         :key="activity.id"
         :activity="activity"
       />
     </ul>
-    <TheNoActivity v-else />
+    <TheNoActivity v-show="!activities.length" class="flex-1" />
     <TheActivityForm />
   </div>
 </template>

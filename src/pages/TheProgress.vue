@@ -5,12 +5,14 @@ import TheNoActivity from '@/components/TheNoActivity.vue';
 </script>
 
 <template>
-  <ul v-if="trackedActivities.length">
-    <ProgressItem
-      v-for="activity in trackedActivities"
-      :key="activity.id"
-      :activity="activity"
-    />
-  </ul>
-  <TheNoActivity v-else />
+  <div class="flex items-center justify-center">
+    <ul v-show="trackedActivities.length" class="">
+      <ProgressItem
+        v-for="activity in trackedActivities"
+        :key="activity.id"
+        :activity="activity"
+      />
+    </ul>
+    <TheNoActivity v-show="!trackedActivities.length" class="h-" />
+  </div>
 </template>

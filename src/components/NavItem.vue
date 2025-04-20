@@ -15,7 +15,7 @@ const props = defineProps({
 });
 
 const classes = computed(() => [
-  'flex flex-col items-center gap-2 p-2 text-xs capitalize',
+  'flex flex-col items-center gap-1 py-2 text-xs capitalize',
   props.navItem.page === currentPage.value
     ? 'bg-gray-800'
     : 'hover:bg-gray-700',
@@ -33,7 +33,7 @@ const handleClick = () => {
       <BaseIcon
         :name="navItem.icon"
         :class="[
-          'h-12 text-gray-700 rounded-2xl bg-gradient-to-br from-green-500 to-blue-500 p-1',
+          'h-10 text-gray-700 rounded-2xl bg-gradient-to-br from-green-500 to-blue-500 p-1',
           {
             'from-red-500 to-yellow-500': currentPage === navItem.page,
           },
@@ -41,7 +41,7 @@ const handleClick = () => {
       />
       <div
         :class="[
-          'text-xl text-gray-400 capitalize',
+          'text-xl font-extralight text-gray-400 capitalize',
           {
             'text-white': currentPage === navItem.page,
           },
